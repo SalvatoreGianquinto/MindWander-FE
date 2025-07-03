@@ -1,0 +1,16 @@
+.custom-container {
+  width: 500px;
+}
+
+.logo {
+  max-width: 400px;
+  height: auto;
+}
+
+.card {
+  background-color: #83c5be;
+}
+
+.form-control {
+  background-color: #edf6f9;
+}

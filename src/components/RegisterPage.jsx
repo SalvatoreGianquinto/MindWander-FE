@@ -36,7 +36,9 @@ function RegisterPage() {
 
   return (
     <div className="container-fluid py-5 d-flex flex-column justify-content-center align-items-center custom-container">
-      <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
+      <Link to="/">
+        <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
+      </Link>
       <div className="card p-5 shadow w-100">
         <h2 className="mb-4 text-center text-primary">Registrati</h2>
         <form onSubmit={handleSubmit}>

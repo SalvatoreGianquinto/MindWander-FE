@@ -28,7 +28,7 @@ function LoginPage() {
       const token = response.data
       localStorage.setItem("token", token)
       alert("Login riuscito!")
-      navigate("/dashboard")
+      navigate("/")
     } catch (err) {
       alert("Errore: " + (err.response?.data?.message || "Login fallito"))
     }
@@ -36,7 +36,9 @@ function LoginPage() {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center vh-100 container-login">
-      <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
+      <Link to="/">
+        <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
+      </Link>
       <div className="card p-4 shadow">
         <h2 className="mb-4 text-center text-primary">Login</h2>
         <form onSubmit={handleSubmit}>

@@ -27,6 +27,7 @@ function LoginPage() {
       )
       const token = response.data
       localStorage.setItem("token", token)
+      window.dispatchEvent(new Event("authChanged"))
       alert("Login riuscito!")
       navigate("/")
     } catch (err) {

@@ -9,7 +9,7 @@ function NavigationBar() {
   const [userRole, setUserRole] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  const checkToken = () => {
     const token = localStorage.getItem("token")
     if (token) {
       try {
@@ -19,28 +19,48 @@ function NavigationBar() {
         setUserRole(role)
       } catch (error) {
         console.error("Token non valido", error)
+        setUserRole(null)
       }
+    } else {
+      setUserRole(null)
+    }
+  }
+
+  useEffect(() => {
+    checkToken()
+
+    const handleAuthChange = () => {
+      checkToken()
+    }
+
+    window.addEventListener("authChanged", handleAuthChange)
+
+    return () => {
+      window.removeEventListener("authChanged", handleAuthChange)
     }
   }, [])
 
   const handleLogout = () => {
     localStorage.removeItem("token")
     setUserRole(null)
+    window.dispatchEvent(new Event("authChanged"))
     navigate("/login")
   }
 
   return (
     <Navbar bg="light" expand="lg" className="navbar-full-width p-3">
       <div className="container-fluid px-4">
-        {" "}
         <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="MindWander" height="40" />
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/itinerari">
-              Itinerari
+            <Nav.Link as={Link} to="/itineraries">
+              Itinerari automatici
+            </Nav.Link>
+            <Nav.Link as={Link} to="/itineraries-crea">
+              Crea Itinerario
             </Nav.Link>
             <Nav.Link as={Link} to="/dashboard">
               Dashboard

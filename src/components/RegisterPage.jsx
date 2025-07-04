@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
-import "../styles/RegisterPage.css"
-import logo from "../assets/logo.jpg"
+import "../styles/AuthPage.css"
+import "../App.css"
+import { FaUser, FaEnvelope, FaLock, FaIdBadge } from "react-icons/fa"
 
 function RegisterPage() {
   const navigate = useNavigate()
@@ -35,76 +36,78 @@ function RegisterPage() {
   }
 
   return (
-    <div className="container-fluid py-5 d-flex flex-column justify-content-center align-items-center custom-container">
-      <Link to="/">
-        <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
-      </Link>
-      <div className="card p-5 shadow w-100">
-        <h2 className="mb-4 text-center text-primary">Registrati</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label text-primary">Nome</label>
-            <input
-              className="form-control"
-              name="nome"
-              value={formData.nome}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label text-primary">Cognome</label>
-            <input
-              className="form-control"
-              name="cognome"
-              value={formData.cognome}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label text-primary">Username</label>
-            <input
-              className="form-control"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label text-primary">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label text-primary">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary w-100">
-            Registrati
-          </button>
-          <p className="mt-3 text-center text-primary">
-            Sei già registrato?{" "}
-            <Link to="/login" className="text-primary">
-              Vai al Login
-            </Link>
+    <div className="wrapper">
+      <form onSubmit={handleSubmit}>
+        <h1 className="text-center mb-4">MINDWANDER</h1>
+
+        <div className="input-box">
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome"
+            value={formData.nome}
+            onChange={handleChange}
+            required
+          />
+          <FaIdBadge className="icon" />
+        </div>
+
+        <div className="input-box">
+          <input
+            type="text"
+            name="cognome"
+            placeholder="Cognome"
+            value={formData.cognome}
+            onChange={handleChange}
+            required
+          />
+          <FaIdBadge className="icon" />
+        </div>
+
+        <div className="input-box">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <FaUser className="icon" />
+        </div>
+
+        <div className="input-box">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <FaEnvelope className="icon" />
+        </div>
+
+        <div className="input-box">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <FaLock className="icon" />
+        </div>
+
+        <button type="submit">Registrati</button>
+
+        <div className="register-link">
+          <p>
+            Hai già un account? <a href="/login">Accedi</a>
           </p>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   )
 }

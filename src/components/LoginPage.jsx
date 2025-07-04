@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import logo from "../assets/logo.jpg"
-import "../styles/LoginPage.css"
+import "../styles/AuthPage.css"
+import "../App.css"
+import { FaUser, FaLock } from "react-icons/fa"
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -35,46 +36,45 @@ function LoginPage() {
   }
 
   return (
-    <div className="container d-flex flex-column justify-content-center align-items-center vh-100 container-login">
-      <Link to="/">
-        <img src={logo} alt="MindWander Logo" className="logo mb-4 w-100" />
-      </Link>
-      <div className="card p-4 shadow">
-        <h2 className="mb-4 text-center text-primary">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label text-primary">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label text-primary">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary w-100">
-            Accedi
-          </button>
-          <p className="mt-3 text-center text-primary">
-            Non sei registrato?{" "}
-            <Link to="/register" className="text-primary">
-              Vai alla registrazione
-            </Link>
+    <div className="wrapper">
+      <form onSubmit={handleSubmit}>
+        <h1>MINDWANDER</h1>
+        <div className="input-box">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <FaUser className="icon" />
+        </div>
+        <div className="input-box">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <FaLock className="icon" />
+        </div>
+        <div className="remember-forgot">
+          <label>
+            <input type="checkbox" />
+            Remember me
+          </label>
+          <a href="#">Password dimenticata?</a>
+        </div>
+        <button type="submit">Login</button>
+        <div className="register-link">
+          <p>
+            Non hai un account? <a href="/register">Registrati</a>
           </p>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   )
 }

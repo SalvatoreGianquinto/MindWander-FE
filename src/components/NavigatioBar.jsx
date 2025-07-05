@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
-import { Navbar, Nav, Button } from "react-bootstrap"
-import logo from "../assets/logo.jpg"
 import "../styles/NavigationBar.css"
+import { FaBars, FaTimes } from "react-icons/fa"
 
 function NavigationBar() {
   const [userRole, setUserRole] = useState(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
 
   const checkToken = () => {
@@ -43,56 +43,60 @@ function NavigationBar() {
   const handleLogout = () => {
     localStorage.removeItem("token")
     setUserRole(null)
-    window.dispatchEvent(new Event("authChanged"))
-    navigate("/login")
+    setSidebarOpen(false)
+    navigate("/")
+  }
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
+
+  const closeSidebar = () => {
+    setSidebarOpen(false)
   }
 
   return (
-    <Navbar bg="light" expand="lg" className="navbar-full-width p-3">
-      <div className="container-fluid px-4">
-        <Navbar.Brand as={Link} to="/">
-          <img src={logo} alt="MindWander" height="40" />
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/itineraries">
-              Itinerari automatici
-            </Nav.Link>
-            <Nav.Link as={Link} to="/itineraries-crea">
-              Crea Itinerario
-            </Nav.Link>
-            <Nav.Link as={Link} to="/dashboard">
-              Dashboard
-            </Nav.Link>
-            <Nav.Link as={Link} to="/strutture">
-              Strutture
-            </Nav.Link>
-            {userRole === "ADMIN" && (
-              <Nav.Link as={Link} to="/backoffice">
-                Backoffice
-              </Nav.Link>
-            )}
-          </Nav>
-          <Nav>
-            {userRole ? (
-              <Button variant="outline-danger" onClick={handleLogout}>
-                Logout
-              </Button>
-            ) : (
-              <>
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-                <Nav.Link as={Link} to="/register">
-                  Register
-                </Nav.Link>
-              </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </div>
-    </Navbar>
+    <>
+      <header className="header">
+        <Link to="/" className="titolo" onClick={closeSidebar}>
+          MINDWANDER
+        </Link>
+        <div className="hamburger" onClick={toggleSidebar}>
+          {sidebarOpen ? <FaTimes /> : <FaBars />}
+        </div>
+        <nav className={`navbar ${sidebarOpen ? "open" : ""}`}>
+          <Link to="/itineraries" onClick={closeSidebar}>
+            Itinerari
+          </Link>
+          <Link to="/strutture" onClick={closeSidebar}>
+            Strutture
+          </Link>
+          <Link to="/dashboard" onClick={closeSidebar}>
+            Dashboard
+          </Link>
+          {userRole === "ADMIN" && (
+            <Link to="/backoffice" onClick={closeSidebar}>
+              BackOffice
+            </Link>
+          )}
+          {userRole ? (
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/login" onClick={closeSidebar}>
+                Login
+              </Link>
+              <Link to="/register" onClick={closeSidebar}>
+                Register
+              </Link>
+            </>
+          )}
+        </nav>
+      </header>
+      {sidebarOpen && <div className="overlay" onClick={closeSidebar}></div>}
+    </>
   )
 }
 

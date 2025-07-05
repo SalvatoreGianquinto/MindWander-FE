@@ -1,34 +1,41 @@
-import { Button } from "react-bootstrap"
 import "../styles/Homepage.css"
 import NavigationBar from "./NavigatioBar"
-import StruttureList from "./StruttureList"
 
 function Homepage() {
   return (
     <>
       <NavigationBar />
-      <header className="hero-section">
-        <div className="container">
-          <h1 className="display-3 fw-bold">Scopri il tuo rifugio ideale</h1>
-          <p className="lead">
-            Viaggi, relax e benessere mentale con MindWander
+
+      <div className="hero-section">
+        <h1 className="hero-title">MindWander</h1>
+        <p className="hero-subtitle">
+          Viaggia con la mente, scopri con il cuore.
+        </p>
+      </div>
+
+      <div className="features-section">
+        <div className="feature-card">
+          <h3>🌍 Esplora Itinerari</h3>
+          <p>
+            Scopri itinerari personalizzati per il tuo benessere mentale,
+            pensati per ogni tipo di viaggiatore.
           </p>
-          <Button variant="primary" size="lg">
-            Inizia a Esplorare
-          </Button>
         </div>
-      </header>
-
-      <main>
-        <StruttureList />
-      </main>
-
-      <footer className="text-center py-4 bg-light mt-5">
-        <small>
-          &copy; {new Date().getFullYear()} MindWander - Tutti i diritti
-          riservati
-        </small>
-      </footer>
+        <div className="feature-card">
+          <h3>🏨 Strutture Selezionate</h3>
+          <p>
+            Scegli tra alloggi unici e rigeneranti, accuratamente selezionati
+            per offrire relax e serenità.
+          </p>
+        </div>
+        <div className="feature-card">
+          <h3>🧘‍♀️ Benessere al Centro</h3>
+          <p>
+            Il nostro obiettivo è connettere il viaggio al benessere, per
+            aiutarti a ritrovare equilibrio e ispirazione.
+          </p>
+        </div>
+      </div>
     </>
   )
 }

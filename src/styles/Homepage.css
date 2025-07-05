@@ -13,8 +13,9 @@
 
 .hero-subtitle {
   font-size: 24px;
-  font-style: italic;
   color: #ddd;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .features-section {

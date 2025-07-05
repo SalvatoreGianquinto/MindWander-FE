@@ -7,6 +7,7 @@ import { FaBars, FaTimes } from "react-icons/fa"
 function NavigationBar() {
   const [userRole, setUserRole] = useState(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [itineraryDropdownOpen, setItineraryDropdownOpen] = useState(false)
   const navigate = useNavigate()
 
   const checkToken = () => {
@@ -55,6 +56,15 @@ function NavigationBar() {
     setSidebarOpen(false)
   }
 
+  const toggleItineraryDropdown = () => {
+    setItineraryDropdownOpen((prev) => !prev)
+  }
+
+  const closeAllMenus = () => {
+    setSidebarOpen(false)
+    setItineraryDropdownOpen(false)
+  }
+
   return (
     <>
       <header className="header">
@@ -65,9 +75,22 @@ function NavigationBar() {
           {sidebarOpen ? <FaTimes /> : <FaBars />}
         </div>
         <nav className={`navbar ${sidebarOpen ? "open" : ""}`}>
-          <Link to="/itineraries" onClick={closeSidebar}>
-            Itinerari
-          </Link>
+          <div className="nav-item-with-dropdown">
+            <div className="nav-link" onClick={toggleItineraryDropdown}>
+              Itinerari ▾
+            </div>
+            {itineraryDropdownOpen && (
+              <div className="dropdown-menu">
+                <Link to="/itineraries" onClick={closeAllMenus}>
+                  Genera Itinerario
+                </Link>
+                <Link to="/itineraries/crea" onClick={closeAllMenus}>
+                  Crea Itinerario
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link to="/strutture" onClick={closeSidebar}>
             Strutture
           </Link>

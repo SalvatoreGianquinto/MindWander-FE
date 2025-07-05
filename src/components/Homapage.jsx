@@ -8,9 +8,9 @@ function Homepage() {
 
       <div className="hero-section">
         <h1 className="hero-title">MindWander</h1>
-        <p className="hero-subtitle">
+        <span className="hero-subtitle">
           Viaggia con la mente, scopri con il cuore.
-        </p>
+        </span>
       </div>
 
       <div className="features-section">

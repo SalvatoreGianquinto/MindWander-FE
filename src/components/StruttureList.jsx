@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Card, Button } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 import "../styles/StruttureList.css"
 
 function StruttureList() {
   const [strutture, setStrutture] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchStrutture = async () => {
@@ -60,6 +62,13 @@ function StruttureList() {
                   </Card.Text>
                   <Button variant="primary" className="mt-2">
                     Prenota
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="mt-2 ms-2"
+                    onClick={() => navigate(`/strutture/${struttura.id}`)}
+                  >
+                    Scopri di più
                   </Button>
                 </Card.Body>
               </div>

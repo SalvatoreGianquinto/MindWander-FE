@@ -7,6 +7,7 @@ import HomePage from "./components/Homapage"
 import StruttureList from "./components/StruttureList"
 import CreaItinerarioPage from "./components/CreaItinerarioPage"
 import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
+import StrutturaDettaglio from "./components/StruttureDettaglio"
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token")
@@ -16,6 +17,7 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/strutture" element={<StruttureList />} />
+      <Route path="/strutture/:id" element={<StrutturaDettaglio />} />
       <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
       <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
     </Routes>

@@ -1,0 +1,48 @@
+.container {
+  max-width: 900px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  max-height: 400px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+.card-body div {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.text-success.fw-bold {
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  padding: 0.5rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1c6dd0;
+  border-color: #1c6dd0;
+}

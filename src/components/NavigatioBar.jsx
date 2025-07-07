@@ -84,7 +84,7 @@ function NavigationBar() {
                 <Link to="/itineraries" onClick={closeAllMenus}>
                   Genera Itinerario
                 </Link>
-                <Link to="/itineraries/crea" onClick={closeAllMenus}>
+                <Link to="/itineraries/create" onClick={closeAllMenus}>
                   Crea Itinerario
                 </Link>
               </div>

@@ -4,9 +4,9 @@ import "./styles/custom.scss"
 import RegisterPage from "./components/RegisterPage"
 import LoginPage from "./components/LoginPage"
 import HomePage from "./components/Homapage"
-import ItinerariPage from "./components/ItineraryPage"
-import CreaItinerarioPage from "./components/CreaItinerarioPage"
 import StruttureList from "./components/StruttureList"
+import CreaItinerarioPage from "./components/CreaItinerarioPage"
+import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token")
@@ -16,8 +16,8 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/strutture" element={<StruttureList />} />
-      <Route path="/itineraries" element={<ItinerariPage />} />
-      <Route path="/itineraries-crea" element={<CreaItinerarioPage />} />
+      <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
+      <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
     </Routes>
   )
 }

@@ -24,7 +24,6 @@ const CreaItinerarioPage = () => {
 
   const token = localStorage.getItem("token")
 
-  // 🔁 Recupero itinerari dell'utente
   useEffect(() => {
     fetchItinerari()
   }, [])
@@ -79,7 +78,7 @@ const CreaItinerarioPage = () => {
       setTitoloIti("")
       setDescrizioneIti("")
       setSteps([{ luogo: "", descrActivity: "", giornoPrevisto: 1 }])
-      fetchItinerari() // 🔄 aggiorna la lista
+      fetchItinerari()
     } catch (err) {
       console.error(err)
       setErrorMsg("Errore durante la creazione dell'itinerario.")
@@ -88,7 +87,6 @@ const CreaItinerarioPage = () => {
     }
   }
 
-  // ✂️ Filtra solo quelli manuali
   const itinerariManuali = itinerari.filter((iti) => iti.automatic === false)
 
   return (

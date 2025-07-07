@@ -10,8 +10,9 @@ import {
 } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import "../styles/AutomaticItinerario.css"
 
-const ItinerariPage = () => {
+const AutomaticItinerarioPage = () => {
   const [formData, setFormData] = useState({
     citta: "",
     days: 1,
@@ -27,8 +28,10 @@ const ItinerariPage = () => {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetchUserItineraries()
-  }, [])
+    if (token) {
+      fetchUserItineraries()
+    }
+  }, [token])
 
   const fetchUserItineraries = async () => {
     try {
@@ -78,6 +81,7 @@ const ItinerariPage = () => {
     setSaving(true)
     setErrorMsg("")
     setSuccessMsg("")
+    setGeneratedItinerary(null)
 
     try {
       const savePayload = {
@@ -105,7 +109,7 @@ const ItinerariPage = () => {
   }
 
   return (
-    <Container className="my-4">
+    <Container className="my-4 automatic-itinerary-page">
       <h2 className="mb-3">Genera un Itinerario</h2>
       <Form onSubmit={handleGenerate}>
         <Row>
@@ -217,4 +221,4 @@ const ItinerariPage = () => {
   )
 }
 
-export default ItinerariPage
+export default AutomaticItinerarioPage

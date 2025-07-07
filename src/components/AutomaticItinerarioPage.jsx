@@ -24,6 +24,7 @@ const AutomaticItinerarioPage = () => {
   const [saving, setSaving] = useState(false)
   const [successMsg, setSuccessMsg] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
+  const [deleting, setDeleting] = useState(null)
 
   const token = localStorage.getItem("token")
 
@@ -108,6 +109,27 @@ const AutomaticItinerarioPage = () => {
     }
   }
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Sei sicuro di voler eliminare questo itinerario?"))
+      return
+    setDeleting(id)
+    setErrorMsg("")
+    setSuccessMsg("")
+
+    try {
+      await axios.delete(`/itineraries/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      setSuccessMsg("Itinerario eliminato con successo.")
+      fetchUserItineraries()
+    } catch (err) {
+      console.error("Errore nell'eliminazione dell'itinerario:", err)
+      setErrorMsg("Errore nell'eliminazione dell'itinerario.")
+    } finally {
+      setDeleting(null)
+    }
+  }
   return (
     <Container className="my-4 automatic-itinerary-page">
       <h2 className="mb-3">Genera un Itinerario</h2>
@@ -192,6 +214,13 @@ const AutomaticItinerarioPage = () => {
                 "Salva Itinerario"
               )}
             </Button>
+            <Button
+              variant="danger"
+              className="mt-2 ms-2"
+              onClick={() => setGeneratedItinerary(null)}
+            >
+              Annulla
+            </Button>
           </Card.Body>
         </Card>
       )}
@@ -211,6 +240,17 @@ const AutomaticItinerarioPage = () => {
                   </li>
                 ))}
               </ul>
+              <Button
+                variant="danger"
+                onClick={() => handleDelete(iti.id)}
+                disabled={deleting === iti.id}
+              >
+                {deleting === iti.id ? (
+                  <Spinner animation="border" size="sm" />
+                ) : (
+                  "Elimina"
+                )}
+              </Button>
             </Card.Body>
           </Card>
         ))

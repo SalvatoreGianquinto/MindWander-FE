@@ -1,81 +1,79 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Card, Button } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import FiltriStrutture from "../components/FiltriStrutture"
+import { Card, Button, Row, Col } from "react-bootstrap"
 import "../styles/StruttureList.css"
 
-function StruttureList() {
+const StruttureList = () => {
   const [strutture, setStrutture] = useState([])
-  const navigate = useNavigate()
+
+  const fetchStrutture = async (filtri = {}) => {
+    try {
+      const token = localStorage.getItem("token")
+
+      const params = {}
+      if (filtri.citta) params.citta = filtri.citta
+      if (filtri.mood) params.mood = filtri.mood
+      if (filtri.minPrezzo) params.minPrezzo = filtri.minPrezzo
+      if (filtri.maxPrezzo) params.maxPrezzo = filtri.maxPrezzo
+
+      const res = await axios.get("http://localhost:8080/strutture/filtrate", {
+        params,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log("RISPOSTA:", res.data)
+      setStrutture(res.data)
+    } catch (error) {
+      console.error("Errore nel recupero strutture:", error)
+    }
+  }
 
   useEffect(() => {
-    const fetchStrutture = async () => {
-      try {
-        const token = localStorage.getItem("token")
-        const response = await axios.get("http://localhost:8080/strutture", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        setStrutture(response.data)
-      } catch (error) {
-        console.error("Errore durante il recupero delle strutture:", error)
-      }
-    }
-
     fetchStrutture()
   }, [])
 
   return (
-    <div className="container my-5">
-      <h2 className="text-center mb-4">Le nostre Strutture</h2>
-      <div className="d-flex flex-column gap-4">
-        {strutture.map((struttura) => (
-          <Card
-            className="struttura-card-horizontal shadow-sm"
-            key={struttura.id}
-          >
-            <div className="row g-0">
-              <div className="col-md-4">
-                <Card.Img
-                  src={
-                    struttura.immaginiUrl?.[0] ||
-                    "https://via.placeholder.com/400x250"
-                  }
-                  alt={struttura.nome}
-                  className="img-fluid h-100 struttura-img-horizontal"
-                />
-              </div>
-              <div className="col-md-8">
-                <Card.Body>
-                  <Card.Title className="text-dark mb-2">
-                    {struttura.nome}
-                  </Card.Title>
-                  <Card.Text className="text-dark">
-                    <strong>Città:</strong> {struttura.citta} <br />
-                    <strong>Prezzo per notte:</strong> €{struttura.prezzo}{" "}
-                    <br />
-                    <strong>Categoria:</strong> {struttura.categoria} <br />
-                    <span className="badge bg-info text-dark mt-2">
-                      {struttura.moodAssociato}
-                    </span>
-                  </Card.Text>
-                  <Button variant="primary" className="mt-2">
-                    Prenota
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    className="mt-2 ms-2"
-                    onClick={() => navigate(`/strutture/${struttura.id}`)}
-                  >
-                    Scopri di più
-                  </Button>
-                </Card.Body>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+    <div className="strutture-wrapper">
+      <Row className="gx-4">
+        <Col md={3}>
+          <FiltriStrutture onFiltra={fetchStrutture} />
+        </Col>
+        <Col md={9}>
+          <Row>
+            {strutture.map((s) => (
+              <Col xs={12} key={s.id} className="mb-4">
+                <Card className="custom-horizontal-card d-flex flex-column flex-md-row align-items-stretch shadow-sm">
+                  <div className="card-img-wrapper">
+                    <Card.Img
+                      src={s.immaginiUrl[0]}
+                      className="card-img-horizontal"
+                    />
+                  </div>
+                  <Card.Body>
+                    <Card.Title>{s.nome}</Card.Title>
+                    <Card.Text>{s.descrizione}</Card.Text>
+                    <Card.Text>
+                      <strong>Città:</strong> {s.citta}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Prezzo:</strong> € {s.prezzo}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Mood:</strong>{" "}
+                      <span className="badge bg-warning text-dark">
+                        {s.moodAssociato}
+                      </span>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+      </Row>
     </div>
   )
 }

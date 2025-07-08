@@ -10,7 +10,6 @@ import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
 import StrutturaDettaglio from "./components/StruttureDettaglio"
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem("token")
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

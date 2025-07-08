@@ -1,0 +1,97 @@
+.wrapper-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #ffd194, #ff7e5f);
+}
+
+.itinerario-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 126, 95, 0.2);
+}
+
+.itinerario-container h1,
+.itinerario-container h2,
+.itinerario-container h3,
+.itinerario-container h4 {
+  color: #fc4a1a;
+  margin-bottom: 1rem;
+}
+
+.quote-box {
+  background: #fff3e6;
+  border-left: 5px solid #fc4a1a;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  font-style: italic;
+  color: #b2452d;
+  transition: all 0.3s ease;
+}
+
+.quote-box:hover {
+  background: #ffe5d0;
+}
+
+.btn-secondary {
+  background-color: #fc4a1a;
+  border: none;
+  &:hover {
+    background-color: #e64a19;
+  }
+}
+
+.alert-success {
+  background-color: #ffd194;
+  color: #6d3900;
+  border: none;
+}
+
+.alert-danger {
+  background-color: #ffcccb;
+  color: #a10000;
+  border: none;
+}
+
+.form {
+  background-color: rgba(255, 218, 185, 0.5);
+  border: 2px solid #ff7e5f;
+  color: #5d2e1f;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form:focus {
+  background-color: rgba(255, 218, 185, 0.8);
+  border-color: #fc4a1a;
+  box-shadow: 0 0 8px rgba(252, 74, 26, 0.4);
+  color: #3b1d0a;
+  outline: none;
+}
+
+.form::placeholder {
+  color: #8c5a3c;
+  opacity: 1;
+}
+
+.custom-card {
+  background: linear-gradient(135deg, #ffdab9, #ff7e5f);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(252, 74, 26, 0.2);
+}
+
+.custom-card-body {
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.custom-card-body label {
+  color: #3b1d0a;
+  font-weight: 500;
+}

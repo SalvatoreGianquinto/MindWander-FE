@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import "../styles/AutomaticItinerario.css"
+import "../styles/Itinerari.css"
 
 const AutomaticItinerarioPage = () => {
   const [formData, setFormData] = useState({
@@ -88,6 +88,8 @@ const AutomaticItinerarioPage = () => {
       const savePayload = {
         titoloIti: generatedItinerary.titoloIti || "Itinerario automatico",
         descrizioneIti: generatedItinerary.descrizioneIti || "",
+        automatic: true,
+        editable: false,
         steps: generatedItinerary.steps.map((step) => ({
           luogo: step.luogo,
           descrActivity: step.descrActivity,
@@ -130,134 +132,211 @@ const AutomaticItinerarioPage = () => {
       setDeleting(null)
     }
   }
+
+  const itinerariAutomatici = userItineraries.filter((iti) => iti.automatic)
   return (
-    <Container className="my-4 automatic-itinerary-page">
-      <h2 className="mb-3">Genera un Itinerario</h2>
-      <Form onSubmit={handleGenerate}>
-        <Row>
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Città</Form.Label>
-              <Form.Control
-                type="text"
-                name="citta"
-                value={formData.citta}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
+    <div className="wrapper-cont py-5">
+      <Container fluid>
+        <Row className="justify-content-center">
+          <Col
+            md={3}
+            className="d-none d-md-flex flex-column justify-content-center align-items-start px-4"
+          >
+            <div className="quote-box mb-5">
+              <blockquote className="blockquote">
+                <p>
+                  "Non smettere mai di esplorare: ogni viaggio ti rivela
+                  qualcosa di nuovo."
+                </p>
+                <footer className="blockquote-footer mt-2">Anonimo</footer>
+              </blockquote>
+            </div>
+            <div className="quote-box">
+              <blockquote className="blockquote">
+                <p>
+                  "Chi torna da un viaggio non è mai la stessa persona che è
+                  partita."
+                </p>
+                <footer className="blockquote-footer mt-2">
+                  Proverbio cinese
+                </footer>
+              </blockquote>
+            </div>
           </Col>
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Numero di Giorni</Form.Label>
-              <Form.Control
-                type="number"
-                name="days"
-                min={1}
-                value={formData.days}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Stile di Viaggio (Mood)</Form.Label>
-              <Form.Control
-                type="text"
-                name="mood"
-                placeholder="Es: natura, avventura, meditazione..."
-                value={formData.mood}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button type="submit" className="mt-3" disabled={loading}>
-          {loading ? <Spinner animation="border" size="sm" /> : "Genera"}
-        </Button>
-      </Form>
 
-      {errorMsg && (
-        <Alert variant="danger" className="mt-3">
-          {errorMsg}
-        </Alert>
-      )}
-      {successMsg && (
-        <Alert variant="success" className="mt-3">
-          {successMsg}
-        </Alert>
-      )}
+          <Col md={6} className="px-4">
+            <h1 className="display-5 text-center mb-4 text-black">
+              Genera il tuo itinerario ideale
+            </h1>
+            <p className="lead text-center text-muted mb-5">
+              Un clic, una città, un'esperienza da ricordare.
+            </p>
 
-      {generatedItinerary && (
-        <Card className="mt-4">
-          <Card.Body>
-            <Card.Title>{generatedItinerary.titoloIti}</Card.Title>
-            <Card.Text>{generatedItinerary.descrizioneIti}</Card.Text>
-            <ul>
-              {generatedItinerary.steps.map((step, index) => (
-                <li key={index}>
-                  <strong>Giorno {step.giornoPrevisto}:</strong> {step.luogo} -{" "}
-                  {step.descrActivity}
-                </li>
-              ))}
-            </ul>
-            <Button
-              variant="success"
-              onClick={handleSave}
-              disabled={saving}
-              className="mt-2"
-            >
-              {saving ? (
-                <Spinner animation="border" size="sm" />
-              ) : (
-                "Salva Itinerario"
-              )}
-            </Button>
-            <Button
-              variant="danger"
-              className="mt-2 ms-2"
-              onClick={() => setGeneratedItinerary(null)}
-            >
-              Annulla
-            </Button>
-          </Card.Body>
-        </Card>
-      )}
-
-      <h3 className="mt-5">I tuoi itinerari salvati</h3>
-      {userItineraries.length > 0 ? (
-        userItineraries.map((iti) => (
-          <Card className="my-3" key={iti.id}>
-            <Card.Body>
-              <Card.Title>{iti.titoloIti}</Card.Title>
-              <Card.Text>{iti.descrizioneIti}</Card.Text>
-              <ul>
-                {iti.steps.map((step, i) => (
-                  <li key={i}>
-                    Giorno {step.giornoPrevisto}: {step.luogo} -{" "}
-                    {step.descrActivity}
-                  </li>
-                ))}
-              </ul>
+            <Form onSubmit={handleGenerate}>
+              <Row className="mb-3">
+                <Col md={4}>
+                  <Form.Group>
+                    <Form.Label>Città</Form.Label>
+                    <Form.Control
+                      className="form"
+                      type="text"
+                      name="citta"
+                      value={formData.citta}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group>
+                    <Form.Label>Giorni</Form.Label>
+                    <Form.Control
+                      className="form"
+                      type="number"
+                      name="days"
+                      min={1}
+                      value={formData.days}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group>
+                    <Form.Label>Mood</Form.Label>
+                    <Form.Control
+                      className="form"
+                      type="text"
+                      name="mood"
+                      placeholder="Relax, avventura..."
+                      value={formData.mood}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
               <Button
-                variant="danger"
-                onClick={() => handleDelete(iti.id)}
-                disabled={deleting === iti.id}
+                type="submit"
+                className="btn-secondary"
+                disabled={loading}
               >
-                {deleting === iti.id ? (
+                {loading ? (
                   <Spinner animation="border" size="sm" />
                 ) : (
-                  "Elimina"
+                  "Genera Itinerario"
                 )}
               </Button>
-            </Card.Body>
-          </Card>
-        ))
-      ) : (
-        <p>Nessun itinerario salvato.</p>
-      )}
-    </Container>
+            </Form>
+
+            {errorMsg && (
+              <Alert variant="danger" className="mt-3">
+                {errorMsg}
+              </Alert>
+            )}
+            {successMsg && (
+              <Alert variant="success" className="mt-3">
+                {successMsg}
+              </Alert>
+            )}
+
+            {generatedItinerary && (
+              <Card className="mt-4 custom-card">
+                <Card.Body className="custom-card-body">
+                  <Card.Title>{generatedItinerary.titoloIti}</Card.Title>
+                  <Card.Text>{generatedItinerary.descrizioneIti}</Card.Text>
+                  <ul>
+                    {generatedItinerary.steps.map((step, idx) => (
+                      <li key={idx}>
+                        <strong>Giorno {step.giornoPrevisto}:</strong>{" "}
+                        {step.luogo} - {step.descrActivity}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    className="btn-secondary mt-3"
+                    onClick={handleSave}
+                    disabled={saving}
+                  >
+                    {saving ? (
+                      <Spinner animation="border" size="sm" />
+                    ) : (
+                      "Salva Itinerario"
+                    )}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="mt-3 ms-2"
+                    onClick={() => setGeneratedItinerary(null)}
+                  >
+                    Annulla
+                  </Button>
+                </Card.Body>
+              </Card>
+            )}
+
+            <h3 className="mt-5">Itinerari automatici salvati</h3>
+            {itinerariAutomatici.length === 0 ? (
+              <p>Nessun itinerario automatico trovato.</p>
+            ) : (
+              itinerariAutomatici.map((iti) => (
+                <Card key={iti.id} className="mb-3 custom-card">
+                  <Card.Body className="custom-card-body">
+                    <Card.Title>{iti.titoloIti}</Card.Title>
+                    <Card.Text>{iti.descrizioneIti}</Card.Text>
+                    <strong>Steps:</strong>
+                    <ul>
+                      {iti.steps.map((step, i) => (
+                        <li key={i}>
+                          Giorno {step.giornoPrevisto}: {step.luogo} -{" "}
+                          {step.descrActivity}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(iti.id)}
+                      disabled={deleting === iti.id}
+                    >
+                      {deleting === iti.id ? (
+                        <Spinner animation="border" size="sm" />
+                      ) : (
+                        "Elimina"
+                      )}
+                    </Button>
+                  </Card.Body>
+                </Card>
+              ))
+            )}
+          </Col>
+
+          <Col
+            md={3}
+            className="d-none d-md-flex flex-column justify-content-center align-items-start px-4"
+          >
+            <div className="quote-box mb-5">
+              <blockquote className="blockquote">
+                <p>
+                  "Il viaggio è l’unica cosa che compri che ti rende più ricco."
+                </p>
+                <footer className="blockquote-footer mt-2">Anonimo</footer>
+              </blockquote>
+            </div>
+            <div className="quote-box">
+              <blockquote className="blockquote">
+                <p>
+                  "Viaggiare significa scoprire che tutti hanno torto riguardo
+                  agli altri paesi."
+                </p>
+                <footer className="blockquote-footer mt-2">
+                  Aldous Huxley
+                </footer>
+              </blockquote>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   )
 }
 

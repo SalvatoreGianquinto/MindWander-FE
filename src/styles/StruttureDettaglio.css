@@ -1,47 +1,86 @@
-.container {
-  max-width: 900px;
+/* Wrapper generale */
+.dettaglio-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 30px 0;
+  background: linear-gradient(to right, #ffe0b2, #ffccbc);
 }
 
-.media-voto-badge {
-  font-size: 1.2rem;
-  vertical-align: middle;
-  margin-left: 0.5rem;
+.container {
+  max-width: 900px;
+  background: linear-gradient(to right, #ffe0b2, #ffccbc);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: #e65100;
 }
 
 .card {
   border-radius: 20px;
   overflow: hidden;
+  background-color: #fff8f0;
+  border: none;
 }
 
 .card-img-top {
   max-height: 400px;
   object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ffcc80;
 }
 
 .badge {
-  font-size: 0.9rem;
-  padding: 0.5em 0.75em;
+  font-size: 0.95rem;
+  padding: 0.5em 0.9em;
   border-radius: 10px;
+}
+
+.badge.bg-info {
+  background-color: #ffd54f !important;
+  color: #4e342e !important;
+}
+
+.badge.bg-success {
+  background-color: #81c784 !important;
+}
+
+.badge.bg-secondary {
+  background-color: #ffb74d !important;
+  color: #4e342e !important;
+}
+
+/* Media voto badge */
+.fs-5.px-3.py-2 {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .card-body div {
   font-size: 1rem;
-  color: #444;
+  color: #4e342e;
   line-height: 1.5;
 }
 
 .text-success.fw-bold {
   font-size: 1.1rem;
+  color: #2e7d32 !important;
+}
+
+.list-group-item {
+  color: #4e342e;
+  background-color: #fff3e0;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-primary {
+  background-color: #fb8c00;
+  border-color: #fb8c00;
   padding: 0.5rem 1.25rem;
   border-radius: 12px;
   font-weight: 500;
@@ -49,6 +88,136 @@ h2 {
 }
 
 .btn-primary:hover {
-  background-color: #1c6dd0;
-  border-color: #1c6dd0;
+  background-color: #ef6c00;
+  border-color: #ef6c00;
+}
+
+.titoli {
+  color: #e65100;
+  margin-bottom: 1rem;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.gallery::-webkit-scrollbar,
+.gallery-side-images::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-top {
+  display: flex;
+  gap: 20px;
+}
+
+.gallery-main-img {
+  width: 70%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-side-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 30%;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.gallery-side-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.gallery-side-img:hover {
+  transform: scale(1.05);
+}
+
+.gallery-bottom {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.gallery-bottom-img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.gallery-bottom-img:hover {
+  transform: scale(1.05);
+}
+
+.servizi-extra-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.servizio-box {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  color: #4e342e;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  cursor: default;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.servizio-box:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .gallery-top {
+    flex-direction: column;
+  }
+
+  .gallery-main-img {
+    width: 100%;
+    height: 250px;
+  }
+
+  .gallery-side-images {
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    max-height: unset;
+  }
+
+  .gallery-side-img {
+    width: calc(50% - 5px);
+    height: 120px;
+  }
+
+  .gallery-bottom-img {
+    width: 140px;
+    height: 100px;
+  }
 }

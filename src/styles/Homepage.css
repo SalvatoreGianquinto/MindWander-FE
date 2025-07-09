@@ -5,6 +5,10 @@
   color: white;
 }
 
+h3 {
+  color: #ddd;
+}
+
 .hero-title {
   font-size: 60px;
   font-weight: bold;

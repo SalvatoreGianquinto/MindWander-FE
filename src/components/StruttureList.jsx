@@ -79,7 +79,7 @@ const StruttureList = () => {
                       <strong>Città:</strong> {s.citta}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Prezzo:</strong> € {s.prezzo}
+                      <strong>Prezzo per notte:</strong> € {s.prezzo}
                     </Card.Text>
                     <Card.Text>
                       <strong>Mood:</strong>{" "}

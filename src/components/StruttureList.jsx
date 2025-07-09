@@ -3,6 +3,7 @@ import axios from "axios"
 import FiltriStrutture from "../components/FiltriStrutture"
 import { Card, Button, Row, Col } from "react-bootstrap"
 import "../styles/StruttureList.css"
+import { Link } from "react-router-dom"
 
 const StruttureList = () => {
   const [strutture, setStrutture] = useState([])
@@ -24,8 +25,23 @@ const StruttureList = () => {
         },
       })
 
-      console.log("RISPOSTA:", res.data)
-      setStrutture(res.data)
+      const struttureConMedia = await Promise.all(
+        res.data.map(async (s) => {
+          try {
+            const mediaRes = await axios.get(
+              `http://localhost:8080/recensioni/struttura/${s.id}/media`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            )
+            return { ...s, mediaVoto: mediaRes.data }
+          } catch {
+            return { ...s, mediaVoto: 0 }
+          }
+        })
+      )
+
+      setStrutture(struttureConMedia)
     } catch (error) {
       console.error("Errore nel recupero strutture:", error)
     }
@@ -52,7 +68,20 @@ const StruttureList = () => {
                       className="card-img-horizontal"
                     />
                   </div>
-                  <Card.Body>
+                  <Card.Body style={{ position: "relative" }}>
+                    <span
+                      className="badge bg-success media-voto-badge"
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      {s.mediaVoto.toFixed(1)}
+                    </span>
+
                     <Card.Title>{s.nome}</Card.Title>
                     <Card.Text>{s.descrizione}</Card.Text>
                     <Card.Text>
@@ -67,6 +96,9 @@ const StruttureList = () => {
                         {s.moodAssociato}
                       </span>
                     </Card.Text>
+                    <Link to={`/strutture/${s.id}`}>
+                      <Button variant="primary">Dettaglio struttura</Button>
+                    </Link>
                   </Card.Body>
                 </Card>
               </Col>

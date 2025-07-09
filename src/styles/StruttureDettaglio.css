@@ -2,6 +2,12 @@
   max-width: 900px;
 }
 
+.media-voto-badge {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
 h2 {
   font-size: 2rem;
   font-weight: 700;

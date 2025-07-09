@@ -42,7 +42,8 @@
 }
 
 .custom-horizontal-card .card-body {
-  padding: 16px;
+  padding: 6px;
+  padding-left: 16px;
   overflow-y: auto;
   width: calc(100% - 250px);
 }
@@ -63,10 +64,19 @@
   color: #4e342e !important;
 }
 
+.media-voto-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
 @media (max-width: 768px) {
   .card {
     flex-direction: column;
     height: auto;
+    margin-top: 20px;
   }
 
   .card-img-wrapper {

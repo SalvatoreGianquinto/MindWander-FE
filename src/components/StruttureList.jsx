@@ -69,16 +69,7 @@ const StruttureList = () => {
                     />
                   </div>
                   <Card.Body style={{ position: "relative" }}>
-                    <span
-                      className="badge bg-success media-voto-badge"
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        fontWeight: "bold",
-                        fontSize: "1rem",
-                      }}
-                    >
+                    <span className="badge bg-success media-voto-badge">
                       {s.mediaVoto.toFixed(1)}
                     </span>
 

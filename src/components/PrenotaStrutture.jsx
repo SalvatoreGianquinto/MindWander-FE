@@ -16,6 +16,7 @@ const PrenotaPage = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,16 +27,30 @@ const PrenotaPage = () => {
     e.preventDefault()
     setLoading(true)
     setError(null)
+    setSuccess(false)
+
+    const token = localStorage.getItem("token")
 
     try {
-      await axios.post("/prenotazioni", {
-        strutturaId,
-        dataInizio: form.dataInizio,
-        dataFine: form.dataFine,
-        numeroOspiti: Number(form.numeroOspiti),
-        note: form.note,
-      })
-      navigate("/prenotazioni/miei")
+      const response = await axios.post(
+        "http://localhost:8080/prenotazioni",
+        {
+          strutturaId,
+          dataInizio: form.dataInizio,
+          dataFine: form.dataFine,
+          numeroOspiti: Number(form.numeroOspiti),
+          note: form.note,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      setSuccess(true)
+      setForm({ dataInizio: "", dataFine: "", numeroOspiti: 1, note: "" })
+      console.log(response.data)
+      setTimeout(() => {
+        navigate("/dashboard", { state: { nuovaPrenotazione: response.data } })
+      }, 1500)
     } catch (err) {
       setError(err.response?.data?.message || "Errore nella prenotazione")
     } finally {
@@ -48,6 +63,11 @@ const PrenotaPage = () => {
       <div className="prenotazione-card">
         <h2 className="card-title">Effettua una prenotazione</h2>
         {error && <div className="alert alert-danger">{error}</div>}
+        {success && (
+          <div className="alert alert-success">
+            Prenotazione effettuata con successo!
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="dataInizio" className="form-label text-black">

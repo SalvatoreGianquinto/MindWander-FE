@@ -10,6 +10,7 @@ import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
 import StrutturaDettaglio from "./components/StruttureDettaglio"
 import NuovaRecensionePage from "./components/NuovaRecensionePage"
 import PrenotaPage from "./components/PrenotaStrutture"
+import UserDashboard from "./components/UserDashboard"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/recensioni/nuova/:id" element={<NuovaRecensionePage />} />
       <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
       <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
+      <Route path="/dashboard" element={<UserDashboard />} />
     </Routes>
   )
 }

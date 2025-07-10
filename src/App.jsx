@@ -8,6 +8,7 @@ import StruttureList from "./components/StruttureList"
 import CreaItinerarioPage from "./components/CreaItinerarioPage"
 import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
 import StrutturaDettaglio from "./components/StruttureDettaglio"
+import NuovaRecensionePage from "./components/NuovaRecensionePage"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/strutture" element={<StruttureList />} />
       <Route path="/strutture/:id" element={<StrutturaDettaglio />} />
+      <Route path="/recensioni/nuova/:id" element={<NuovaRecensionePage />} />
       <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
       <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
     </Routes>

@@ -191,7 +191,7 @@ function StrutturaDettaglio() {
         <h3 className="mb-3 d-flex justify-content-between align-items-center titoli">
           <span>Recensioni</span>
           <Button
-            variant="outline-primary"
+            variant="primary"
             onClick={() => navigate(`/recensioni/nuova/${id}`)}
           >
             Lascia una recensione

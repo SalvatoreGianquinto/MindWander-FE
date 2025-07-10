@@ -188,7 +188,16 @@ function StrutturaDettaglio() {
         </div>
 
         {/* Recensioni */}
-        <h3 className="mb-3 titoli">Recensioni</h3>
+        <h3 className="mb-3 d-flex justify-content-between align-items-center titoli">
+          <span>Recensioni</span>
+          <Button
+            variant="outline-primary"
+            onClick={() => navigate(`/recensioni/nuova/${id}`)}
+          >
+            Lascia una recensione
+          </Button>
+        </h3>
+
         {recensioni.length === 0 ? (
           <p>Nessuna recensione presente per questa struttura.</p>
         ) : (

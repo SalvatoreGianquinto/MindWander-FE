@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import {
@@ -169,7 +169,9 @@ function StrutturaDettaglio() {
               </div>
             </div>
             <div className="d-flex justify-content-end">
-              <Button variant="primary">Prenota ora</Button>
+              <Link to={`/prenota/${struttura.id}`} className="btn btn-success">
+                Prenota ora
+              </Link>
             </div>
           </Card.Body>
         </Card>

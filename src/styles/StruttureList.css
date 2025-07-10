@@ -21,7 +21,7 @@
   transition: transform 0.2s ease;
   display: flex;
   flex-direction: row;
-  height: 250px;
+  height: 280px;
 }
 
 .card:hover {
@@ -44,7 +44,6 @@
 .custom-horizontal-card .card-body {
   padding: 6px;
   padding-left: 16px;
-  overflow-y: auto;
   width: calc(100% - 250px);
 }
 

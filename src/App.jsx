@@ -9,6 +9,7 @@ import CreaItinerarioPage from "./components/CreaItinerarioPage"
 import AutomaticItinerarioPage from "./components/AutomaticItinerarioPage"
 import StrutturaDettaglio from "./components/StruttureDettaglio"
 import NuovaRecensionePage from "./components/NuovaRecensionePage"
+import PrenotaPage from "./components/PrenotaStrutture"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/strutture" element={<StruttureList />} />
       <Route path="/strutture/:id" element={<StrutturaDettaglio />} />
+      <Route path="/prenota/:strutturaId" element={<PrenotaPage />} />
       <Route path="/recensioni/nuova/:id" element={<NuovaRecensionePage />} />
       <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
       <Route path="/itineraries/create" element={<CreaItinerarioPage />} />

@@ -1,0 +1,88 @@
+/* Wrapper e container simili */
+.prenotazione-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 40px 0;
+  background: linear-gradient(to right, #ffe0b2, #ffccbc);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.prenotazione-card {
+  max-width: 600px;
+  width: 90%;
+  background: #fff8f0;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e65100;
+  margin-bottom: 2rem;
+}
+
+/* Stile uniforme per input, select e textarea */
+.form-control {
+  background-color: #fff3e0;
+  border: 1.5px solid #ffb74d;
+  border-radius: 12px;
+  padding: 10px;
+  color: #4e342e;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-shadow: none !important;
+}
+
+.form-control:focus {
+  border-color: #fb8c00;
+  outline: none;
+  box-shadow: 0 0 8px #fb8c00aa !important;
+}
+
+/* Label */
+.form-label {
+  font-weight: 600;
+  color: #4e342e;
+  margin-bottom: 0.5rem;
+}
+
+/* Pulsante */
+.btn-primary {
+  background-color: #fb8c00;
+  border-color: #fb8c00;
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #ef6c00;
+  border-color: #ef6c00;
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Alert errori */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .prenotazione-card {
+    padding: 20px 25px;
+    width: 95%;
+  }
+}

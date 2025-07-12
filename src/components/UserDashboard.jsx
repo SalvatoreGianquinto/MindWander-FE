@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { ListGroup } from "react-bootstrap"
 import axios from "axios"
 import "../styles/UserDashboard.css"
 
 const UserDashboard = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const nuovaPrenotazione = location.state?.nuovaPrenotazione
 
   const [prenotazioni, setPrenotazioni] = useState([])
@@ -30,8 +32,6 @@ const UserDashboard = () => {
         setPrenotazioni(
           Array.isArray(prenotazioniRes.data) ? prenotazioniRes.data : []
         )
-
-        console.log("prenotazioniRes.data:", prenotazioniRes.data)
 
         const recensioniRes = await axios.get(
           "http://localhost:8080/recensioni/mie",
@@ -59,7 +59,6 @@ const UserDashboard = () => {
   useEffect(() => {
     if (nuovaPrenotazione) {
       setPrenotazioni((prev) => [nuovaPrenotazione, ...prev])
-      console.log(nuovaPrenotazione)
     }
   }, [nuovaPrenotazione])
 
@@ -73,37 +72,52 @@ const UserDashboard = () => {
         {prenotazioni.length === 0 ? (
           <p>Nessuna prenotazione trovata</p>
         ) : (
-          <ul>
+          <ListGroup>
             {prenotazioni.map((p) => (
-              <li key={p.id}>
+              <ListGroup.Item key={p.id}>
                 {p.struttura.nome} dal{" "}
                 {new Date(p.dataInizio).toLocaleDateString()} al{" "}
-                {new Date(p.dataFine).toLocaleDateString()}
-              </li>
+                {new Date(p.dataFine).toLocaleDateString()} -{" "}
+                <strong>
+                  Prezzo totale: €{" "}
+                  {p.prezzoTotale !== undefined && p.prezzoTotale !== null
+                    ? p.prezzoTotale.toFixed(2)
+                    : "N/A"}
+                </strong>
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
         )}
 
-        <h2>Le tue recensioni</h2>
+        <h2 className="mt-4">Le tue recensioni</h2>
         {recensioni.length === 0 ? (
           <p>Nessuna recensione trovata</p>
         ) : (
-          <ul>
+          <ListGroup>
             {recensioni.map((r) => (
-              <li key={r.id}>{r.testo}</li>
+              <ListGroup.Item key={r.id}>
+                <strong>{r.autore}</strong>: {r.commento} — voto: {r.voto}
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
         )}
 
-        <h2>I tuoi itinerari</h2>
+        <h2 className="mt-4">I tuoi itinerari</h2>
         {itinerari.length === 0 ? (
           <p>Nessun itinerario trovato</p>
         ) : (
-          <ul>
+          <ListGroup>
             {itinerari.map((i) => (
-              <li key={i.id}>{i.titoloIti}</li>
+              <ListGroup.Item
+                key={i.id}
+                action
+                onClick={() => navigate(`/itineraries`)}
+                style={{ cursor: "pointer" }}
+              >
+                {i.titoloIti}
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
         )}
       </div>
     </div>

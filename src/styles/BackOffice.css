@@ -1,4 +1,3 @@
-/* Contenitore principale simile a dashboard */
 .common-page-wrapper {
   width: 100vw;
   min-height: 100vh;
@@ -9,7 +8,6 @@
   align-items: flex-start;
 }
 
-/* Box contenuto con sfondo chiaro */
 .common-wrapper {
   max-width: 900px;
   width: 90%;
@@ -21,7 +19,6 @@
   color: #4e342e;
 }
 
-/* Titolo principale */
 .common-wrapper h2 {
   font-size: 2rem;
   font-weight: 700;
@@ -31,12 +28,10 @@
   padding-bottom: 8px;
 }
 
-/* Spaziatura */
 .common-wrapper .mb-3 {
   margin-bottom: 1.5rem;
 }
 
-/* Testo, liste */
 .common-wrapper p,
 .common-wrapper ul,
 .common-wrapper li {
@@ -64,7 +59,6 @@
   cursor: default;
 }
 
-/* Pulsanti */
 .common-wrapper button {
   padding: 0.5rem 1.5rem;
   border-radius: 12px;
@@ -86,7 +80,23 @@
   cursor: not-allowed;
 }
 
-/* Alert per messaggi di errore e successo */
+.common-wrapper table {
+  color: #333 !important;
+  background-color: #fff !important;
+  border-color: #ccc !important;
+}
+
+.common-wrapper table th,
+.common-wrapper table td {
+  color: #333 !important;
+  background-color: #fff !important;
+  border-color: #ddd !important;
+}
+
+.common-wrapper table tbody tr:hover {
+  background-color: #e9ecef !important;
+}
+
 .alert-danger {
   background-color: #f8d7da;
   color: #842029;
@@ -103,7 +113,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Centrare spinner */
 .spinner-center {
   display: flex;
   justify-content: center;
@@ -111,7 +120,39 @@
   height: 200px;
 }
 
-/* Responsive */
+.common-wrapper table {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.common-wrapper table thead {
+  background-color: #f5f5f5;
+  color: #555;
+  font-weight: 600;
+}
+
+.common-wrapper table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.common-wrapper table th,
+.common-wrapper table td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+.common-wrapper table.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+
+.nav-link {
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .common-wrapper {
     padding: 20px 25px;

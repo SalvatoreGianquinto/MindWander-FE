@@ -50,7 +50,7 @@ function NuovaStruttura() {
   }
 
   const handleServiziExtraChange = (e) => {
-    const value = Number(e.target.value) // forza a numero
+    const value = Number(e.target.value)
     const checked = e.target.checked
     setFormData((prev) => {
       let newServizi = [...prev.serviziExtraIds]

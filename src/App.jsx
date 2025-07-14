@@ -11,6 +11,9 @@ import StrutturaDettaglio from "./components/StruttureDettaglio"
 import NuovaRecensionePage from "./components/NuovaRecensionePage"
 import PrenotaPage from "./components/PrenotaStrutture"
 import UserDashboard from "./components/UserDashboard"
+import BackOffice from "./components/BackOffice"
+import NuovaStruttura from "./components/NuovaStruttura"
+import EditStruttura from "./components/EditStruttura"
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
       <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
       <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
       <Route path="/dashboard" element={<UserDashboard />} />
+      <Route path="/backoffice" element={<BackOffice />} />
+      <Route path="/backoffice/nuova-struttura" element={<NuovaStruttura />} />
+      <Route path="/backoffice/modifica/:id" element={<EditStruttura />} />
     </Routes>
   )
 }

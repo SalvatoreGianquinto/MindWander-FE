@@ -62,16 +62,24 @@ const BackOffice = () => {
         <Tab.Container defaultActiveKey="strutture">
           <Nav variant="tabs" className="mb-3">
             <Nav.Item>
-              <Nav.Link eventKey="strutture">Gestione Strutture</Nav.Link>
+              <Nav.Link eventKey="strutture" className="nav-link-back">
+                Gestione Strutture
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="utenti">Gestione Utenti</Nav.Link>
+              <Nav.Link eventKey="utenti" className="nav-link-back">
+                Gestione Utenti
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="recensioni">Moderazione Recensioni</Nav.Link>
+              <Nav.Link eventKey="recensioni" className="nav-link-back">
+                Moderazione Recensioni
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="itinerari">Gestione Itinerari</Nav.Link>
+              <Nav.Link eventKey="itinerari" className="nav-link-back">
+                Gestione Itinerari
+              </Nav.Link>
             </Nav.Item>
           </Nav>
 

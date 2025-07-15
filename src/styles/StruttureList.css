@@ -4,6 +4,7 @@
   overflow-y: auto;
   padding: 20px;
   background: linear-gradient(to right, #ffe0b2, #ffccbc);
+  padding-top: 100px;
 }
 
 .filtri-wrapper {

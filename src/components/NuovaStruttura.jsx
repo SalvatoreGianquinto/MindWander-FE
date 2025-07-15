@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Spinner, Row, Col } from "react-bootstrap"
 import "../styles/BackOffice.css"
+import NavigationBar from "./NavigatioBar"
 
 const UPLOAD_PRESET = "uploadpreset"
 const CLOUD_NAME = "ddfzjwhuq"
@@ -112,140 +113,143 @@ function NuovaStruttura() {
   }
 
   return (
-    <div className="common-page-wrapper">
-      <div className="common-wrapper" style={{ maxWidth: "700px" }}>
-        <h2 className="mb-4">Crea Nuova Struttura</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Nome</Form.Label>
-            <Form.Control
-              type="text"
-              name="nome"
-              value={formData.nome}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+    <>
+      <NavigationBar />
+      <div className="common-page-wrapper">
+        <div className="common-wrapper">
+          <h2 className="mb-4">Crea Nuova Struttura</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                type="text"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Descrizione</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="descrizione"
-              value={formData.descrizione}
-              onChange={handleChange}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Descrizione</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="descrizione"
+                value={formData.descrizione}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-          <Row>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>Città</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="citta"
-                  value={formData.citta}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>Indirizzo</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="indirizzo"
-                  value={formData.indirizzo}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Città</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="citta"
+                    value={formData.citta}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Indirizzo</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="indirizzo"
+                    value={formData.indirizzo}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>Prezzo</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="prezzo"
-                  value={formData.prezzo}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3">
-                <Form.Label>Disponibile</Form.Label>
-                <Form.Check
-                  type="checkbox"
-                  name="disponibile"
-                  checked={formData.disponibile}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Prezzo</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="prezzo"
+                    value={formData.prezzo}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Disponibile</Form.Label>
+                  <Form.Check
+                    type="checkbox"
+                    name="disponibile"
+                    checked={formData.disponibile}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Mood Associato</Form.Label>
-            <Form.Control
-              type="text"
-              name="moodAssociato"
-              value={formData.moodAssociato}
-              onChange={handleChange}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Mood Associato</Form.Label>
+              <Form.Control
+                type="text"
+                name="moodAssociato"
+                value={formData.moodAssociato}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Categoria Alloggio</Form.Label>
-            <Form.Control
-              type="text"
-              name="categoriaAlloggio"
-              value={formData.categoriaAlloggio}
-              onChange={handleChange}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Categoria Alloggio</Form.Label>
+              <Form.Control
+                type="text"
+                name="categoriaAlloggio"
+                value={formData.categoriaAlloggio}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Servizi Extra</Form.Label>
-            <div>
-              {serviziExtraList.map((servizio) => (
-                <Form.Check
-                  key={servizio.id}
-                  type="checkbox"
-                  label={servizio.nome}
-                  value={servizio.id.toString()}
-                  checked={formData.serviziExtraIds.includes(servizio.id)}
-                  onChange={handleServiziExtraChange}
-                />
-              ))}
-            </div>
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Servizi Extra</Form.Label>
+              <div>
+                {serviziExtraList.map((servizio) => (
+                  <Form.Check
+                    key={servizio.id}
+                    type="checkbox"
+                    label={servizio.nome}
+                    value={servizio.id.toString()}
+                    checked={formData.serviziExtraIds.includes(servizio.id)}
+                    onChange={handleServiziExtraChange}
+                  />
+                ))}
+              </div>
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Immagini</Form.Label>
-            <Form.Control
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Immagini</Form.Label>
+              <Form.Control
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit" disabled={uploading}>
-            {uploading ? (
-              <>
-                <Spinner animation="border" size="sm" /> Caricamento...
-              </>
-            ) : (
-              "Crea Struttura"
-            )}
-          </Button>
-        </Form>
+            <Button variant="primary" type="submit" disabled={uploading}>
+              {uploading ? (
+                <>
+                  <Spinner animation="border" size="sm" /> Caricamento...
+                </>
+              ) : (
+                "Crea Struttura"
+              )}
+            </Button>
+          </Form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

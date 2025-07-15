@@ -6,6 +6,7 @@
   min-height: 100vh;
   padding: 2rem;
   background: linear-gradient(to bottom, #ffd194, #ff7e5f);
+  padding-top: 100px;
 }
 
 .itinerario-container {

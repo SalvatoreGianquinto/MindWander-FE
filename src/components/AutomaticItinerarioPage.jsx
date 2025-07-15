@@ -135,7 +135,7 @@ const AutomaticItinerarioPage = () => {
 
   const itinerariAutomatici = userItineraries.filter((iti) => iti.automatic)
   return (
-    <div className="wrapper-cont py-5">
+    <div className="wrapper-cont">
       <Container fluid>
         <Row className="justify-content-center">
           <Col

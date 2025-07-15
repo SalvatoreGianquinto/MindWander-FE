@@ -14,23 +14,30 @@ import UserDashboard from "./components/UserDashboard"
 import BackOffice from "./components/BackOffice"
 import NuovaStruttura from "./components/NuovaStruttura"
 import EditStruttura from "./components/EditStruttura"
+import LayoutWithNavbar from "./components/LayoutWithNavbar"
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/strutture" element={<StruttureList />} />
-      <Route path="/strutture/:id" element={<StrutturaDettaglio />} />
-      <Route path="/prenota/:strutturaId" element={<PrenotaPage />} />
-      <Route path="/recensioni/nuova/:id" element={<NuovaRecensionePage />} />
-      <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
-      <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
-      <Route path="/dashboard" element={<UserDashboard />} />
-      <Route path="/backoffice" element={<BackOffice />} />
-      <Route path="/backoffice/nuova-struttura" element={<NuovaStruttura />} />
-      <Route path="/backoffice/modifica/:id" element={<EditStruttura />} />
+      <Route path="/" element={<HomePage />} />
+
+      <Route element={<LayoutWithNavbar />}>
+        <Route path="/strutture" element={<StruttureList />} />
+        <Route path="/strutture/:id" element={<StrutturaDettaglio />} />
+        <Route path="/prenota/:strutturaId" element={<PrenotaPage />} />
+        <Route path="/recensioni/nuova/:id" element={<NuovaRecensionePage />} />
+        <Route path="/itineraries" element={<AutomaticItinerarioPage />} />
+        <Route path="/itineraries/create" element={<CreaItinerarioPage />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/backoffice" element={<BackOffice />} />
+        <Route
+          path="/backoffice/nuova-struttura"
+          element={<NuovaStruttura />}
+        />
+        <Route path="/backoffice/modifica/:id" element={<EditStruttura />} />
+      </Route>
     </Routes>
   )
 }

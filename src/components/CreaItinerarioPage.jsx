@@ -133,7 +133,7 @@ const CreaItinerarioPage = () => {
   const itinerariManuali = itinerari.filter((iti) => iti.automatic === false)
 
   return (
-    <div className="wrapper-cont py-5">
+    <div className="wrapper-cont">
       <Container fluid>
         <Row className="justify-content-center">
           <Col

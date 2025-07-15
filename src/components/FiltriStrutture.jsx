@@ -9,10 +9,11 @@ const FiltriStrutture = ({ onFiltra }) => {
   const [mood, setMood] = useState("")
   const [minPrezzo, setMinPrezzo] = useState("")
   const [maxPrezzo, setMaxPrezzo] = useState("")
+  const [votoMedioMin, setVotoMedioMin] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onFiltra({ citta, mood, minPrezzo, maxPrezzo })
+    onFiltra({ citta, mood, minPrezzo, maxPrezzo, votoMedioMin })
   }
 
   return (
@@ -63,6 +64,18 @@ const FiltriStrutture = ({ onFiltra }) => {
               value={maxPrezzo}
               onChange={(e) => setMaxPrezzo(e.target.value)}
               className="form"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="number"
+              step="0.1"
+              placeholder="Voto Medio Min"
+              value={votoMedioMin}
+              onChange={(e) => setVotoMedioMin(e.target.value)}
+              className="form"
+              min="0"
+              max="10"
             />
           </Form.Group>
           <Button type="submit" className="btn-filtra w-100">

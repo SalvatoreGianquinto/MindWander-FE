@@ -17,6 +17,7 @@ const StruttureList = () => {
       if (filtri.mood) params.mood = filtri.mood
       if (filtri.minPrezzo) params.minPrezzo = filtri.minPrezzo
       if (filtri.maxPrezzo) params.maxPrezzo = filtri.maxPrezzo
+      if (filtri.votoMedioMin) params.votoMedioMin = filtri.votoMedioMin
 
       const res = await axios.get("http://localhost:8080/strutture/filtrate", {
         params,

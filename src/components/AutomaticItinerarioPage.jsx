@@ -243,7 +243,9 @@ const AutomaticItinerarioPage = () => {
             {generatedItinerary && (
               <Card className="mt-4 custom-card">
                 <Card.Body className="custom-card-body">
-                  <Card.Title>{generatedItinerary.titoloIti}</Card.Title>
+                  <Card.Title className="card-title">
+                    {generatedItinerary.titoloIti}
+                  </Card.Title>
                   <Card.Text>{generatedItinerary.descrizioneIti}</Card.Text>
                   <ul>
                     {generatedItinerary.steps.map((step, idx) => (

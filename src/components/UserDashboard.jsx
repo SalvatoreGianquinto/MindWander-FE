@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ListGroup } from "react-bootstrap"
 import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 import "../styles/UserDashboard.css"
 
 const UserDashboard = () => {
@@ -9,6 +10,7 @@ const UserDashboard = () => {
   const navigate = useNavigate()
   const nuovaPrenotazione = location.state?.nuovaPrenotazione
 
+  const [userInfo, setUserInfo] = useState(null)
   const [prenotazioni, setPrenotazioni] = useState([])
   const [recensioni, setRecensioni] = useState([])
   const [itinerari, setItinerari] = useState([])
@@ -17,13 +19,27 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        navigate("/login")
+        return
+      }
+
       setLoading(true)
       setError(null)
       try {
-        const token = localStorage.getItem("token")
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         }
+
+        const decoded = jwtDecode(token)
+        const userId = decoded.id || decoded.userId || decoded.sub
+
+        const userRes = await axios.get(
+          `http://localhost:8080/users/${userId}`,
+          config
+        )
+        setUserInfo(userRes.data)
 
         const prenotazioniRes = await axios.get(
           "http://localhost:8080/prenotazioni/miei",
@@ -47,14 +63,19 @@ const UserDashboard = () => {
         )
         setItinerari(Array.isArray(itinerariRes.data) ? itinerariRes.data : [])
       } catch (err) {
-        setError(err.response?.data?.message || "Errore nel caricamento dati")
+        if (err.response && err.response.status === 401) {
+          localStorage.removeItem("token")
+          navigate("/login")
+        } else {
+          setError(err.response?.data?.message || "Errore nel caricamento dati")
+        }
       } finally {
         setLoading(false)
       }
     }
 
     fetchData()
-  }, [])
+  }, [navigate])
 
   useEffect(() => {
     if (nuovaPrenotazione) {
@@ -68,6 +89,32 @@ const UserDashboard = () => {
   return (
     <div className="dashboard-page-wrapper">
       <div className="dashboard-wrapper">
+        {userInfo && (
+          <div className="user-info mb-5 p-3 rounded shadow-sm bg-light">
+            <h2 className="mb-3">Profilo Utente</h2>
+            <ListGroup>
+              <ListGroup.Item>
+                <strong>Username:</strong> {userInfo.username}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Nome:</strong> {userInfo.nome}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Cognome:</strong> {userInfo.cognome}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Email:</strong> {userInfo.email}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Ruoli:</strong>{" "}
+                {Array.isArray(userInfo.ruoli)
+                  ? userInfo.ruoli.join(", ")
+                  : userInfo.ruoli}
+              </ListGroup.Item>
+            </ListGroup>
+          </div>
+        )}
+
         <h2>Le tue prenotazioni</h2>
         {prenotazioni.length === 0 ? (
           <p>Nessuna prenotazione trovata</p>

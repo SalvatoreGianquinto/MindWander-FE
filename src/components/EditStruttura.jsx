@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { useParams, useNavigate } from "react-router-dom"
-import {
-  Form,
-  Button,
-  Container,
-  Image,
-  CloseButton,
-  Spinner,
-} from "react-bootstrap"
+import { Form, Button, Image, CloseButton, Spinner } from "react-bootstrap"
 
 const UPLOAD_PRESET = "uploadpreset"
 const CLOUD_NAME = "ddfzjwhuq"
@@ -16,6 +9,8 @@ const CLOUD_NAME = "ddfzjwhuq"
 function EditStruttura() {
   const { id } = useParams()
   const navigate = useNavigate()
+
+  const fileInputRef = useRef(null)
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -103,6 +98,7 @@ function EditStruttura() {
     setNewImages(Array.from(e.target.files))
   }
 
+  // Rimuove immagine esistente
   const removeExistingImage = (url) => {
     setExistingImages((prev) => prev.filter((img) => img !== url))
   }
@@ -129,6 +125,10 @@ function EditStruttura() {
     setUploading(false)
     setUploadedNewImages(urls)
     return urls
+  }
+
+  const handleCustomFileClick = () => {
+    fileInputRef.current?.click()
   }
 
   const handleSubmit = async (e) => {
@@ -169,6 +169,13 @@ function EditStruttura() {
   return (
     <div className="common-page-wrapper">
       <div className="common-wrapper">
+        <Button
+          variant="secondary"
+          className="mb-3"
+          onClick={() => navigate(-1)}
+        >
+          Indietro
+        </Button>
         <h2>Modifica Struttura</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="nome">
@@ -290,13 +297,7 @@ function EditStruttura() {
                   />
                   <CloseButton
                     onClick={() => removeExistingImage(url)}
-                    style={{
-                      position: "absolute",
-                      top: 2,
-                      right: 2,
-                      backgroundColor: "white",
-                      borderRadius: "50%",
-                    }}
+                    className="close-button"
                   />
                 </div>
               ))}
@@ -304,13 +305,22 @@ function EditStruttura() {
           </Form.Group>
 
           <Form.Group controlId="newImages" className="mb-4">
-            <Form.Label>Nuove Immagini</Form.Label>
             <Form.Control
               type="file"
               multiple
               accept="image/*"
               onChange={handleFileChange}
+              ref={fileInputRef}
+              style={{ display: "none" }}
             />
+            <Button variant="secondary" onClick={handleCustomFileClick}>
+              Scegli Immagini
+            </Button>
+            <div className="mt-2">
+              {newImages.length > 0
+                ? newImages.map((file, idx) => <div key={idx}>{file.name}</div>)
+                : "Nessuna immagine selezionata"}
+            </div>
             {uploading && (
               <div className="mt-2">
                 <Spinner animation="border" size="sm" /> Uploading...

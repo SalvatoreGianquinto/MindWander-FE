@@ -122,6 +122,13 @@ function NuovaStruttura() {
       <NavigationBar />
       <div className="common-page-wrapper">
         <div className="common-wrapper">
+          <Button
+            variant="secondary"
+            className="mb-3"
+            onClick={() => navigate(-1)}
+          >
+            Indietro
+          </Button>
           <h2 className="mb-4">Crea Nuova Struttura</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">

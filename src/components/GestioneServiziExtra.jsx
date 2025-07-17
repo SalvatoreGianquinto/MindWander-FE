@@ -86,7 +86,7 @@ const GestioneServiziExtra = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex flex-column justify-content-between align-items-start mb-3">
         <h2>Servizi Extra</h2>
         <Button variant="success" onClick={openCreateModal}>
           + Nuovo Servizio Extra

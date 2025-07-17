@@ -51,7 +51,7 @@ const GestioneItinerari = () => {
   }
 
   return (
-    <div className="common-wrapper">
+    <div>
       <h2 className="mb-3">Gestione Itinerari</h2>
       <table className="tabella-backoffice">
         <thead>

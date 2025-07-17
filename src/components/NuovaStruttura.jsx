@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Spinner, Row, Col } from "react-bootstrap"
@@ -25,7 +25,8 @@ function NuovaStruttura() {
   const [uploading, setUploading] = useState(false)
   const [serviziExtraList, setServiziExtraList] = useState([])
   const token = localStorage.getItem("token")
-  console.log("TOKEN:", token)
+
+  const fileInputRef = useRef(null)
 
   useEffect(() => {
     const fetchServiziExtra = async () => {
@@ -66,6 +67,10 @@ function NuovaStruttura() {
 
   const handleFileChange = (e) => {
     setSelectedImages(Array.from(e.target.files))
+  }
+
+  const handleCustomFileClick = () => {
+    fileInputRef.current.click()
   }
 
   const uploadImages = async () => {
@@ -228,13 +233,24 @@ function NuovaStruttura() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Immagini</Form.Label>
               <Form.Control
                 type="file"
                 multiple
                 accept="image/*"
                 onChange={handleFileChange}
+                ref={fileInputRef}
+                style={{ display: "none" }}
               />
+              <Button variant="secondary" onClick={handleCustomFileClick}>
+                Scegli Immagini
+              </Button>
+              <div className="mt-2">
+                {selectedImages.length > 0
+                  ? selectedImages.map((file, idx) => (
+                      <div key={idx}>{file.name}</div>
+                    ))
+                  : "Nessuna immagine selezionata"}
+              </div>
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={uploading}>

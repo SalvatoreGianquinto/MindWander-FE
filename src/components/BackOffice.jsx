@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import UserManagement from "./UserManagment"
 import ModerazioneRecensioni from "./ModerazioneRecensioni"
 import GestioneItinerari from "./GestioneItinerari"
+import GestioneServiziExtra from "./GestioneServiziExtra"
 import "../styles/BackOffice.css"
 
 const BackOffice = () => {
@@ -81,6 +82,11 @@ const BackOffice = () => {
                 Gestione Itinerari
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="serviziExtra" className="nav-link-back">
+                Gestione Servizi Extra
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
 
           <Tab.Content>
@@ -144,6 +150,10 @@ const BackOffice = () => {
 
             <Tab.Pane eventKey="itinerari">
               <GestioneItinerari />
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="serviziExtra">
+              <GestioneServiziExtra />
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>

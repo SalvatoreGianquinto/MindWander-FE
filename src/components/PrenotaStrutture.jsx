@@ -52,7 +52,7 @@ const PrenotaPage = () => {
         navigate("/dashboard", { state: { nuovaPrenotazione: response.data } })
       }, 1500)
     } catch (err) {
-      setError(err.response?.data?.message || "Errore nella prenotazione")
+      setError(err.response?.data?.message || "Alloggio già prenotato")
     } finally {
       setLoading(false)
     }

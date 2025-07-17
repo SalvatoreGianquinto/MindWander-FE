@@ -47,7 +47,7 @@ const ModerazioneRecensioni = () => {
   }
 
   return (
-    <div className="common-wrapper">
+    <div>
       <h2 className="mb-3">Moderazione Recensioni</h2>
       <table className="tabella-backoffice">
         <thead>
@@ -92,5 +92,4 @@ const ModerazioneRecensioni = () => {
     </div>
   )
 }
-
 export default ModerazioneRecensioni

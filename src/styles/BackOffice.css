@@ -17,7 +17,7 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   color: #4e342e;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .common-wrapper h2 {
@@ -165,9 +165,8 @@
 
   .tabella-backoffice tbody tr {
     display: block;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #333;
     padding: 0.5rem;
+    border-bottom: 1px solid #333;
     background-color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }

@@ -249,7 +249,7 @@ const CreaItinerarioPage = () => {
                           />
                         </Form.Group>
                       </Col>
-                      <Col md={1} className="d-flex align-items-end">
+                      <Col md={1} className="d-flex align-items-end mt-2">
                         <Button
                           variant="danger"
                           onClick={() => handleRemoveStep(index)}

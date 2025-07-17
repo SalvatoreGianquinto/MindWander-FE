@@ -166,8 +166,7 @@
   .tabella-backoffice tbody tr {
     display: block;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 12px;
+    border-bottom: 1px solid #333;
     padding: 0.5rem;
     background-color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);

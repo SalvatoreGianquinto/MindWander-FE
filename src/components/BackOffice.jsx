@@ -98,7 +98,7 @@ const BackOffice = () => {
               >
                 + Aggiungi Nuova Struttura
               </Button>
-              <Table bordered hover responsive>
+              <Table bordered hover responsive className="tabella-backoffice">
                 <thead>
                   <tr>
                     <th>Nome</th>
@@ -111,11 +111,11 @@ const BackOffice = () => {
                 <tbody>
                   {strutture.map((s) => (
                     <tr key={s.id}>
-                      <td>{s.nome}</td>
-                      <td>{s.citta}</td>
-                      <td>{s.prezzo}€</td>
-                      <td>{s.moodAssociato}</td>
-                      <td>
+                      <td data-label="Nome">{s.nome}</td>
+                      <td data-label="Città">{s.citta}</td>
+                      <td data-label="Prezzo">{s.prezzo}€</td>
+                      <td data-label="Mood">{s.moodAssociato}</td>
+                      <td data-label="Azioni">
                         <Button
                           variant="warning"
                           size="sm"

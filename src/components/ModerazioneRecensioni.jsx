@@ -47,9 +47,9 @@ const ModerazioneRecensioni = () => {
   }
 
   return (
-    <div>
+    <div className="common-wrapper">
       <h2 className="mb-3">Moderazione Recensioni</h2>
-      <Table striped bordered hover responsive>
+      <table className="tabella-backoffice">
         <thead>
           <tr>
             <th>Utente</th>
@@ -69,11 +69,13 @@ const ModerazioneRecensioni = () => {
           ) : (
             recensioni.map((r) => (
               <tr key={r.id}>
-                <td>{r.autore}</td>
-                <td>{r.voto}</td>
-                <td>{r.commento}</td>
-                <td>{new Date(r.data).toLocaleDateString()}</td>
-                <td>
+                <td data-label="Utente">{r.autore}</td>
+                <td data-label="Voto">{r.voto}</td>
+                <td data-label="Commento">{r.commento}</td>
+                <td data-label="Data">
+                  {new Date(r.data).toLocaleDateString()}
+                </td>
+                <td data-label="Azioni">
                   <Button
                     variant="danger"
                     size="sm"
@@ -86,7 +88,7 @@ const ModerazioneRecensioni = () => {
             ))
           )}
         </tbody>
-      </Table>
+      </table>
     </div>
   )
 }

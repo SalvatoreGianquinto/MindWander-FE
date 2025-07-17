@@ -90,11 +90,7 @@ const UserManagement = () => {
   return (
     <div>
       <h2>Gestione Utenti</h2>
-      <table
-        border="1"
-        cellPadding={8}
-        style={{ borderCollapse: "collapse", width: "100%" }}
-      >
+      <table className="tabella-backoffice">
         <thead>
           <tr>
             <th>Nome</th>
@@ -117,11 +113,11 @@ const UserManagement = () => {
             }
             return (
               <tr key={user.id}>
-                <td>
+                <td data-label="Nome">
                   {user.nome} {user.cognome}
                 </td>
-                <td>{user.email}</td>
-                <td>
+                <td data-label="Email">{user.email}</td>
+                <td data-label="Ruoli">
                   {["ADMIN", "USER"].map((role) => (
                     <label key={role} style={{ marginRight: "10px" }}>
                       <input
@@ -135,14 +131,14 @@ const UserManagement = () => {
                     </label>
                   ))}
                 </td>
-                <td>
+                <td data-label="Azioni">
                   <button
                     onClick={() => handleSaveRoles(user.id)}
                     disabled={!rolesUpdates[user.id]}
+                    className="p-1"
                   >
                     Salva Ruoli
                   </button>
-                  {" | "}
                   <button onClick={() => handleDeleteUser(user.id)}>
                     Elimina
                   </button>

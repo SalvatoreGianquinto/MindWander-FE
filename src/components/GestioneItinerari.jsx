@@ -51,9 +51,9 @@ const GestioneItinerari = () => {
   }
 
   return (
-    <div>
+    <div className="common-wrapper">
       <h2 className="mb-3">Gestione Itinerari</h2>
-      <Table striped bordered hover responsive>
+      <table className="tabella-backoffice">
         <thead>
           <tr>
             <th>Titolo</th>
@@ -64,25 +64,32 @@ const GestioneItinerari = () => {
           </tr>
         </thead>
         <tbody>
-          {itinerari.map((it) => (
-            <tr key={it.id}>
-              <td>{it.titoloIti}</td>
-              <td>{it.descrizioneIti}</td>
-              <td>{it.automatic ? "Sì" : "No"}</td>
-              <td>{it.editable ? "Sì" : "No"}</td>
-              <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => deleteItinerario(it.id)}
-                >
-                  Elimina
-                </Button>
+          {itinerari.length === 0 ? (
+            <tr>
+              <td colSpan="5" className="text-center">
+                Nessun itinerario salvato.
               </td>
             </tr>
-          ))}
+          ) : (
+            itinerari.map((it) => (
+              <tr key={it.id}>
+                <td data-label="Titolo">{it.titoloIti}</td>
+                <td data-label="Descrizione">{it.descrizioneIti}</td>
+                <td data-label="Automatico">{it.automatic ? "Sì" : "No"}</td>
+                <td data-label="Modificabile">{it.editable ? "Sì" : "No"}</td>
+                <td data-label="Azioni">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => deleteItinerario(it.id)}
+                  >
+                    Elimina
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
-      </Table>
+      </table>
     </div>
   )
 }

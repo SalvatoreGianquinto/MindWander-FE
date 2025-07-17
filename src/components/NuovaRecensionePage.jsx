@@ -51,6 +51,13 @@ function NuovaRecensionePage() {
   return (
     <div className="nuova-recensione-wrapper">
       <div className="nuova-recensione-container">
+        <Button
+          variant="secondary"
+          className="mb-3"
+          onClick={() => navigate(-1)}
+        >
+          Indietro
+        </Button>
         <h2>Lascia una recensione</h2>
 
         {errore && <Alert variant="danger">{errore}</Alert>}

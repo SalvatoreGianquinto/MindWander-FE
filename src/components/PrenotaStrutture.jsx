@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import "../styles/PrenotaPage.css"
+import { Button } from "react-bootstrap"
 
 const PrenotaPage = () => {
   const { strutturaId } = useParams()
@@ -61,7 +62,14 @@ const PrenotaPage = () => {
   return (
     <div className="prenotazione-wrapper">
       <div className="prenotazione-card">
-        <h2 className="card-title">Effettua una prenotazione</h2>
+        <Button
+          variant="secondary"
+          className="mb-3"
+          onClick={() => navigate(-1)}
+        >
+          Indietro
+        </Button>
+        <h2>Effettua una prenotazione</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         {success && (
           <div className="alert alert-success">

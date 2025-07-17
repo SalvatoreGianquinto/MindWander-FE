@@ -91,6 +91,13 @@ function StrutturaDettaglio() {
     <div className="dettaglio-wrapper">
       <div className="container my-5">
         {/* Titolo e voto */}
+        <Button
+          variant="secondary"
+          className="mb-3"
+          onClick={() => navigate(-1)}
+        >
+          Indietro
+        </Button>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>{struttura.nome}</h2>
           <span className="badge bg-success fs-5 px-3 py-2">

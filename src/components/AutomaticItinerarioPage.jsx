@@ -168,7 +168,7 @@ const AutomaticItinerarioPage = () => {
             <h1 className="display-5 text-center mb-4 text-black">
               Genera il tuo itinerario ideale
             </h1>
-            <p className="lead text-center text-muted mb-5">
+            <p className="lead text-center text-black mb-5">
               Un clic, una città, un'esperienza da ricordare.
             </p>
 
@@ -243,7 +243,7 @@ const AutomaticItinerarioPage = () => {
             {generatedItinerary && (
               <Card className="mt-4 custom-card">
                 <Card.Body className="custom-card-body">
-                  <Card.Title className="card-title">
+                  <Card.Title className="card-title-automatic">
                     {generatedItinerary.titoloIti}
                   </Card.Title>
                   <Card.Text>{generatedItinerary.descrizioneIti}</Card.Text>
@@ -277,17 +277,17 @@ const AutomaticItinerarioPage = () => {
               </Card>
             )}
 
-            <h3 className="mt-5">Itinerari automatici salvati</h3>
+            <h3 className="mt-5 titolo-h3">Itinerari automatici salvati</h3>
             {itinerariAutomatici.length === 0 ? (
-              <p>Nessun itinerario automatico trovato.</p>
+              <p className="paragrafo">Nessun itinerario automatico trovato.</p>
             ) : (
               itinerariAutomatici.map((iti) => (
                 <Card key={iti.id} className="mb-3 custom-card">
                   <Card.Body className="custom-card-body">
                     <Card.Title>{iti.titoloIti}</Card.Title>
                     <Card.Text>{iti.descrizioneIti}</Card.Text>
-                    <strong>Steps:</strong>
-                    <ul>
+                    <strong className="text-dark">Steps:</strong>
+                    <ul className="text-dark">
                       {iti.steps.map((step, i) => (
                         <li key={i}>
                           Giorno {step.giornoPrevisto}: {step.luogo} -{" "}

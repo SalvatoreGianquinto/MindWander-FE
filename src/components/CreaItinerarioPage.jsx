@@ -165,7 +165,7 @@ const CreaItinerarioPage = () => {
             <h1 className="display-5 text-center mb-4 text-black">
               Crea il tuo viaggio indimenticabile
             </h1>
-            <p className="lead text-center text-muted mb-5">
+            <p className="lead text-center text-black mb-5">
               Ogni passo è un ricordo. Dai vita al tuo itinerario, un’emozione
               alla volta.
             </p>
@@ -193,7 +193,7 @@ const CreaItinerarioPage = () => {
                 />
               </Form.Group>
 
-              <h4>Step dell'itinerario</h4>
+              <h3 className="titolo-h3">Step dell'itinerario</h3>
               {steps.map((step, index) => (
                 <Card key={index} className="mb-3 custom-card">
                   <Card.Body className="custom-card-body">
@@ -293,9 +293,9 @@ const CreaItinerarioPage = () => {
               </Alert>
             )}
 
-            <h3 className="mt-5">Itinerari creati manualmente</h3>
+            <h3 className="mt-5 titolo-h3">Itinerari creati manualmente</h3>
             {itinerariManuali.length === 0 ? (
-              <p>Nessun itinerario manuale trovato.</p>
+              <p className="paragrafo">Nessun itinerario manuale trovato.</p>
             ) : (
               itinerariManuali.map((iti) => (
                 <Card key={iti.id} className="mb-3">

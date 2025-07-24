@@ -22,8 +22,6 @@ const CreaItinerarioPage = () => {
   const [successMsg, setSuccessMsg] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [itinerari, setItinerari] = useState([])
-  const [editMode, setEditMode] = useState(false)
-  const [editId, setEditId] = useState(null)
   const [deleting, setDeleting] = useState(null)
 
   const token = localStorage.getItem("token")
@@ -34,7 +32,7 @@ const CreaItinerarioPage = () => {
 
   const fetchItinerari = async () => {
     try {
-      const response = await axios.get("/itineraries", {
+      const response = await axios.get("http://localhost:8080/itineraries", {
         headers: { Authorization: `Bearer ${token}` },
       })
       setItinerari(response.data)
@@ -76,23 +74,14 @@ const CreaItinerarioPage = () => {
     }
 
     try {
-      if (editMode) {
-        await axios.put(`/itineraries/${editId}`, payload, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        setSuccessMsg("Itinerario modificato con successo!")
-      } else {
-        await axios.post("/itineraries/create", payload, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        setSuccessMsg("Itinerario creato con successo!")
-      }
+      await axios.post("http://localhost:8080/itineraries/create", payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setSuccessMsg("Itinerario creato con successo!")
 
       setTitoloIti("")
       setDescrizioneIti("")
       setSteps([{ luogo: "", descrActivity: "", giornoPrevisto: 1 }])
-      setEditMode(false)
-      setEditId(null)
       fetchItinerari()
     } catch (err) {
       console.error(err)
@@ -102,24 +91,10 @@ const CreaItinerarioPage = () => {
     }
   }
 
-  const startEdit = (iti) => {
-    setEditMode(true)
-    setEditId(iti.id)
-    setTitoloIti(iti.titoloIti)
-    setDescrizioneIti(iti.descrizioneIti)
-    setSteps(
-      iti.steps.map((s) => ({
-        luogo: s.luogo,
-        descrActivity: s.descrActivity,
-        giornoPrevisto: s.giornoPrevisto,
-      }))
-    )
-  }
-
   const handleDelete = async (id) => {
     setDeleting(id)
     try {
-      await axios.delete(`/itineraries/${id}`, {
+      await axios.delete(`http://localhost:8080/itineraries/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       fetchItinerari()
@@ -160,7 +135,6 @@ const CreaItinerarioPage = () => {
               </blockquote>
             </div>
           </Col>
-
           <Col md={6} className="px-4">
             <h1 className="display-5 text-center mb-4 text-black">
               Crea il tuo viaggio indimenticabile
@@ -169,7 +143,6 @@ const CreaItinerarioPage = () => {
               Ogni passo è un ricordo. Dai vita al tuo itinerario, un’emozione
               alla volta.
             </p>
-
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3 text-black">
                 <Form.Label>Titolo</Form.Label>
@@ -192,7 +165,6 @@ const CreaItinerarioPage = () => {
                   onChange={(e) => setDescrizioneIti(e.target.value)}
                 />
               </Form.Group>
-
               <h3 className="titolo-h3">Step dell'itinerario</h3>
               {steps.map((step, index) => (
                 <Card key={index} className="mb-3 custom-card">
@@ -302,8 +274,8 @@ const CreaItinerarioPage = () => {
                   <Card.Body>
                     <Card.Title>{iti.titoloIti}</Card.Title>
                     <Card.Text>{iti.descrizioneIti}</Card.Text>
-                    <strong>Steps:</strong>
-                    <ul>
+                    <strong className="text-black">Steps:</strong>
+                    <ul className="text-black">
                       {iti.steps.map((step, idx) => (
                         <li key={idx}>
                           Giorno {step.giornoPrevisto}: {step.luogo} -{" "}
@@ -311,13 +283,6 @@ const CreaItinerarioPage = () => {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      variant="warning"
-                      className="me-2"
-                      onClick={() => startEdit(iti)}
-                    >
-                      Modifica
-                    </Button>
                     <Button
                       variant="danger"
                       onClick={() => handleDelete(iti.id)}

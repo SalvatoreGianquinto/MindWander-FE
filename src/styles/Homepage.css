@@ -17,9 +17,12 @@ h3 {
 
 .hero-subtitle {
   font-size: 24px;
-  color: #ddd;
+  color: white;
   font-size: 30px;
   font-weight: 500;
+  border: 2px solid #ff964c;
+  background-color: #ff964c;
+  border-radius: 10px;
 }
 
 .features-section {

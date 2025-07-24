@@ -90,7 +90,6 @@ function StrutturaDettaglio() {
   return (
     <div className="dettaglio-wrapper">
       <div className="container my-5">
-        {/* Titolo e voto */}
         <Button
           variant="secondary"
           className="mb-3"
@@ -98,6 +97,7 @@ function StrutturaDettaglio() {
         >
           Indietro
         </Button>
+
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2>{struttura.nome}</h2>
           <span className="badge bg-success fs-5 px-3 py-2">
@@ -156,10 +156,10 @@ function StrutturaDettaglio() {
         <Card className="shadow-lg border-0 mb-4">
           <Card.Body className="p-4">
             <div className="mb-3 text-center">
-              <span className="badge bg-secondary">{struttura.categoria}</span>
-              <span className="badge bg-info ms-2">
+              <Badge bg="secondary">{struttura.categoria}</Badge>{" "}
+              <Badge bg="info" className="ms-2">
                 {struttura.moodAssociato}
-              </span>
+              </Badge>
             </div>
             <div className="mb-3">
               <div>
@@ -172,7 +172,10 @@ function StrutturaDettaglio() {
                 </span>
               </div>
               <div>
-                <strong>Descrizione:</strong> {struttura.descrizione || "N/A"}
+                <strong>Descrizione:</strong>{" "}
+                {struttura.descrizione && struttura.descrizione.trim() !== ""
+                  ? struttura.descrizione
+                  : "N/A"}
               </div>
             </div>
             <div className="d-flex justify-content-end">
@@ -196,7 +199,38 @@ function StrutturaDettaglio() {
           )}
         </div>
 
-        {/* Recensioni */}
+        <h3 className="mb-3 titoli">Stanze disponibili</h3>
+        {struttura.stanze?.length > 0 ? (
+          <ListGroup className="mb-4">
+            {struttura.stanze.map((stanza) => (
+              <ListGroup.Item
+                key={stanza.id}
+                className="d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <strong>{stanza.nome || `Stanza #${stanza.id}`}</strong>
+                  <br />
+                  <div>
+                    <span className="fw-bold">
+                      Posti Letto: {stanza.postiLetto}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <span className="fw-bold">
+                    €
+                    {stanza.prezzo !== undefined && stanza.prezzo !== null
+                      ? stanza.prezzo
+                      : struttura.prezzo}
+                  </span>
+                </div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        ) : (
+          <p>Nessuna stanza disponibile.</p>
+        )}
+
         <h3 className="mb-3 d-flex justify-content-between align-items-center titoli">
           <span>Recensioni</span>
           <Button
@@ -214,7 +248,9 @@ function StrutturaDettaglio() {
             {recensioni.map((rec) => (
               <ListGroup.Item key={rec.id}>
                 <strong>{rec.autore}</strong>{" "}
-                <span className="badge bg-success ms-2">{rec.voto}</span>
+                <Badge bg="success" className="ms-2">
+                  {rec.voto}
+                </Badge>
                 <p className="mb-1">{rec.commento}</p>
                 <small className="text-black">
                   {new Date(rec.data).toLocaleDateString()}

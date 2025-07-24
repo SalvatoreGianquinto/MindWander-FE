@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { useParams, useNavigate } from "react-router-dom"
 import { Form, Button, Image, CloseButton, Spinner } from "react-bootstrap"
@@ -98,7 +98,6 @@ function EditStruttura() {
     setNewImages(Array.from(e.target.files))
   }
 
-  // Rimuove immagine esistente
   const removeExistingImage = (url) => {
     setExistingImages((prev) => prev.filter((img) => img !== url))
   }

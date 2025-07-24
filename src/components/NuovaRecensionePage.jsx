@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { Container, Form, Button, Alert, Spinner } from "react-bootstrap"
+import { Form, Button, Alert, Spinner } from "react-bootstrap"
 import "../styles/NuovaRecensionePage.css"
 
 function NuovaRecensionePage() {
   const { id } = useParams()
   const navigate = useNavigate()
-
   const [voto, setVoto] = useState(5)
   const [commento, setCommento] = useState("")
   const [loading, setLoading] = useState(false)

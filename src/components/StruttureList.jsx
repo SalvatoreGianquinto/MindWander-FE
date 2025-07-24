@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import FiltriStrutture from "../components/FiltriStrutture"
 import { Card, Button, Row, Col } from "react-bootstrap"

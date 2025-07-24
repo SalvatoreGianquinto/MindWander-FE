@@ -1,7 +1,6 @@
-// src/components/ModerazioneRecensioni.jsx
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { Table, Button, Spinner } from "react-bootstrap"
+import { Button, Spinner } from "react-bootstrap"
 
 const ModerazioneRecensioni = () => {
   const [recensioni, setRecensioni] = useState([])

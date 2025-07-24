@@ -21,6 +21,13 @@ function NuovaStruttura() {
     categoriaAlloggio: "",
     serviziExtraIds: [],
   })
+  const [stanze, setStanze] = useState([])
+  const [stanzaForm, setStanzaForm] = useState({
+    nome: "",
+    descrizione: "",
+    postiLetto: 1,
+    prezzo: "",
+  })
   const [selectedImages, setSelectedImages] = useState([])
   const [uploading, setUploading] = useState(false)
   const [serviziExtraList, setServiziExtraList] = useState([])
@@ -39,7 +46,6 @@ function NuovaStruttura() {
         console.error("Errore nel fetch servizi extra", error)
       }
     }
-
     fetchServiziExtra()
   }, [token])
 
@@ -73,13 +79,39 @@ function NuovaStruttura() {
     fileInputRef.current.click()
   }
 
+  const handleStanzaChange = (e) => {
+    const { name, value } = e.target
+    setStanzaForm((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const aggiungiStanza = () => {
+    if (!stanzaForm.nome.trim()) return alert("Inserisci nome stanza")
+    if (!stanzaForm.prezzo || isNaN(stanzaForm.prezzo))
+      return alert("Inserisci un prezzo valido per la stanza")
+    if (
+      !stanzaForm.postiLetto ||
+      isNaN(stanzaForm.postiLetto) ||
+      stanzaForm.postiLetto < 1
+    )
+      return alert("Inserisci un numero valido di posti letto")
+
+    setStanze((prev) => [
+      ...prev,
+      {
+        ...stanzaForm,
+        postiLetto: Number(stanzaForm.postiLetto),
+        prezzo: parseFloat(stanzaForm.prezzo),
+      },
+    ])
+    setStanzaForm({ nome: "", descrizione: "", postiLetto: 1, prezzo: "" })
+  }
+
   const uploadImages = async () => {
     const urls = []
     for (const file of selectedImages) {
       const formDataImg = new FormData()
       formDataImg.append("file", file)
       formDataImg.append("upload_preset", UPLOAD_PRESET)
-
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
         formDataImg
@@ -91,22 +123,23 @@ function NuovaStruttura() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (stanze.length === 0) {
+      alert("Aggiungi almeno una stanza alla struttura")
+      return
+    }
     setUploading(true)
-
     try {
       const immaginiUrl = await uploadImages()
-
       const strutturaDto = {
         ...formData,
         prezzo: parseFloat(formData.prezzo),
         immaginiUrl,
         serviziExtraIds: formData.serviziExtraIds,
+        stanze,
       }
-
       await axios.post("http://localhost:8080/strutture", strutturaDto, {
         headers: { Authorization: `Bearer ${token}` },
       })
-
       alert("Struttura creata con successo!")
       navigate("/backoffice")
     } catch (error) {
@@ -187,6 +220,8 @@ function NuovaStruttura() {
                     name="prezzo"
                     value={formData.prezzo}
                     onChange={handleChange}
+                    min={0}
+                    step="0.01"
                   />
                 </Form.Group>
               </Col>
@@ -260,15 +295,64 @@ function NuovaStruttura() {
               </div>
             </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={uploading}>
-              {uploading ? (
-                <>
-                  <Spinner animation="border" size="sm" /> Caricamento...
-                </>
-              ) : (
-                "Crea Struttura"
-              )}
+            <h4>Stanze</h4>
+            <ul>
+              {stanze.map((stanza, idx) => (
+                <li key={idx}>
+                  {stanza.nome} - {stanza.postiLetto} posti - €
+                  {stanza.prezzo.toFixed(2)}
+                </li>
+              ))}
+            </ul>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Nome Stanza</Form.Label>
+              <Form.Control
+                type="text"
+                name="nome"
+                value={stanzaForm.nome}
+                onChange={handleStanzaChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Posti Letto</Form.Label>
+              <Form.Control
+                type="number"
+                name="postiLetto"
+                min={1}
+                value={stanzaForm.postiLetto}
+                onChange={handleStanzaChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Prezzo Stanza</Form.Label>
+              <Form.Control
+                type="number"
+                name="prezzo"
+                min={0}
+                step="0.01"
+                value={stanzaForm.prezzo}
+                onChange={handleStanzaChange}
+              />
+            </Form.Group>
+            <Button
+              variant="secondary"
+              onClick={aggiungiStanza}
+              className="mb-4"
+            >
+              Aggiungi Stanza
             </Button>
+            <div>
+              <Button variant="primary" type="submit" disabled={uploading}>
+                {uploading ? (
+                  <>
+                    <Spinner animation="border" size="sm" /> Caricamento...
+                  </>
+                ) : (
+                  "Crea Struttura"
+                )}
+              </Button>
+            </div>
           </Form>
         </div>
       </div>

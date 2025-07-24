@@ -36,10 +36,9 @@ const AutomaticItinerarioPage = () => {
 
   const fetchUserItineraries = async () => {
     try {
-      const response = await axios.get("/itineraries", {
+      const response = await axios.get("http://localhost:8080/itineraries", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      console.log("Dati ricevuti:", response.data)
 
       if (Array.isArray(response.data)) {
         setUserItineraries(response.data)
@@ -64,9 +63,13 @@ const AutomaticItinerarioPage = () => {
     setErrorMsg("")
     setSuccessMsg("")
     try {
-      const res = await axios.post("/itineraries/generate", formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const res = await axios.post(
+        "http://localhost:8080/itineraries/generate",
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       setGeneratedItinerary(res.data)
     } catch (err) {
       console.error("Errore nella generazione dell'itinerario:", err)
@@ -97,9 +100,13 @@ const AutomaticItinerarioPage = () => {
         })),
       }
 
-      await axios.post("/itineraries/create", savePayload, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await axios.post(
+        "http://localhost:8080/itineraries/create",
+        savePayload,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
 
       setSuccessMsg("Itinerario salvato con successo!")
       fetchUserItineraries()
@@ -119,7 +126,7 @@ const AutomaticItinerarioPage = () => {
     setSuccessMsg("")
 
     try {
-      await axios.delete(`/itineraries/${id}`, {
+      await axios.delete(`http://localhost:8080/itineraries/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -247,7 +254,7 @@ const AutomaticItinerarioPage = () => {
                     {generatedItinerary.titoloIti}
                   </Card.Title>
                   <Card.Text>{generatedItinerary.descrizioneIti}</Card.Text>
-                  <ul>
+                  <ul className="text-black">
                     {generatedItinerary.steps.map((step, idx) => (
                       <li key={idx}>
                         <strong>Giorno {step.giornoPrevisto}:</strong>{" "}

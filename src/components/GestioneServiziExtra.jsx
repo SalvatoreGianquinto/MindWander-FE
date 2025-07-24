@@ -6,7 +6,6 @@ const GestioneServiziExtra = () => {
   const [servizi, setServizi] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
   const [showModal, setShowModal] = useState(false)
   const [modalMode, setModalMode] = useState("create")
   const [currentServizio, setCurrentServizio] = useState({ id: null, nome: "" })

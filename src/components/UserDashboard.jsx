@@ -67,6 +67,8 @@ const UserDashboard = () => {
           Array.isArray(prenotazioniRes.data) ? prenotazioniRes.data : []
         )
 
+        console.log("Prenotazioni utente:", prenotazioniRes.data)
+
         const recensioniRes = await axios.get(
           "http://localhost:8080/recensioni/mie",
           config
@@ -275,59 +277,86 @@ const UserDashboard = () => {
           <p>Nessuna prenotazione trovata</p>
         ) : (
           <ListGroup>
-            {prenotazioni.map((p) => (
-              <ListGroup.Item
-                key={p.id}
-                className="d-flex justify-content-between align-items-center"
-              >
-                <div>
-                  {p.struttura.nome} dal{" "}
-                  {new Date(p.dataInizio).toLocaleDateString()} al{" "}
-                  {new Date(p.dataFine).toLocaleDateString()} —{" "}
-                  <strong>
-                    €{" "}
-                    {p.prezzoTotale !== undefined && p.prezzoTotale !== null
-                      ? p.prezzoTotale.toFixed(2)
-                      : "N/A"}
-                  </strong>
-                </div>
-                <Button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleCancellaPrenotazione(p.id)}
+            {prenotazioni.map((p) => {
+              console.log(p)
+
+              const inizio = new Date(p.dataInizio)
+              const fine = new Date(p.dataFine)
+              const diffMs = Math.abs(fine - inizio)
+              const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+
+              const prezzoTotale = p.prezzoTotale || 0
+
+              return (
+                <ListGroup.Item
+                  key={p.id}
+                  className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2"
                 >
-                  Cancella
-                </Button>
-              </ListGroup.Item>
-            ))}
+                  <div>
+                    <strong>Struttura:</strong>{" "}
+                    <span style={{ fontWeight: "bold" }}>
+                      {p.nomeStruttura || "N/D"}
+                    </span>
+                    <br />
+                    <strong>Stanza:</strong>{" "}
+                    <span style={{ fontWeight: "bold" }}>
+                      {p.nomeStanza || "N/D"}
+                    </span>
+                    <br />
+                    <strong>Data inizio:</strong>{" "}
+                    {inizio.toLocaleDateString("it-IT")}
+                    <br />
+                    <strong>Data fine:</strong>{" "}
+                    {fine.toLocaleDateString("it-IT")}
+                    <br />
+                    <strong>Giorni:</strong> {diffDays}
+                    <br />
+                    <strong>Prezzo totale:</strong> €{prezzoTotale}
+                  </div>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleCancellaPrenotazione(p.id)}
+                  >
+                    Cancella
+                  </Button>
+                </ListGroup.Item>
+              )
+            })}
           </ListGroup>
         )}
 
-        <h2 className="mt-4">Le tue recensioni</h2>
+        <h2 className="mt-5">Le tue recensioni</h2>
         {recensioni.length === 0 ? (
           <p>Nessuna recensione trovata</p>
         ) : (
           <ListGroup>
             {recensioni.map((r) => (
               <ListGroup.Item key={r.id}>
-                <strong>{r.autore}</strong>: {r.commento} — voto: {r.voto}
+                <strong>Struttura:</strong> {r.struttura?.nome || "N/D"}
+                <br />
+                <strong>Voto:</strong> {r.voto} / 5
+                <br />
+                <strong>Commento:</strong> {r.commento}
+                <br />
+                <small>
+                  Data: {new Date(r.dataRecensione).toLocaleDateString("it-IT")}
+                </small>
               </ListGroup.Item>
             ))}
           </ListGroup>
         )}
 
-        <h2 className="mt-4">I tuoi itinerari</h2>
+        <h2 className="mt-5">I tuoi itinerari</h2>
         {itinerari.length === 0 ? (
           <p>Nessun itinerario trovato</p>
         ) : (
           <ListGroup>
             {itinerari.map((i) => (
-              <ListGroup.Item
-                key={i.id}
-                action
-                onClick={() => navigate(`/itineraries`)}
-                style={{ cursor: "pointer" }}
-              >
-                {i.titoloIti}
+              <ListGroup.Item key={i.id}>
+                <strong>Nome:</strong> {i.nome}
+                <br />
+                <strong>Descrizione:</strong> {i.descrizione}
               </ListGroup.Item>
             ))}
           </ListGroup>

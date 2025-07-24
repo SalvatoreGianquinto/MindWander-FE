@@ -1,4 +1,3 @@
-/* Wrapper e container simili */
 .prenotazione-wrapper {
   width: 100vw;
   min-height: 100vh;
@@ -26,7 +25,6 @@
   margin-bottom: 2rem;
 }
 
-/* Stile uniforme per input, select e textarea */
 .form-control {
   background-color: #fff3e0;
   border: 1.5px solid #ffb74d;
@@ -46,14 +44,12 @@
   box-shadow: 0 0 8px #fb8c00aa !important;
 }
 
-/* Label */
 .form-label {
   font-weight: 600;
   color: #4e342e;
   margin-bottom: 0.5rem;
 }
 
-/* Pulsante */
 .btn-primary {
   background-color: #fb8c00;
   border-color: #fb8c00;
@@ -74,7 +70,6 @@
   cursor: not-allowed;
 }
 
-/* Alert errori */
 .alert-danger {
   background-color: #f8d7da;
   color: #842029;

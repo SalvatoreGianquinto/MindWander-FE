@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { Table, Button, Spinner } from "react-bootstrap"
+import { Spinner } from "react-bootstrap"
 
 const GestioneItinerari = () => {
   const [itinerari, setItinerari] = useState([])

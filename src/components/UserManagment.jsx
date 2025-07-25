@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Button } from "react-bootstrap"
 
 const API_URL = "http://localhost:8080/users"
 
@@ -132,16 +133,16 @@ const UserManagement = () => {
                   ))}
                 </td>
                 <td data-label="Azioni">
-                  <button
+                  <Button
                     onClick={() => handleSaveRoles(user.id)}
                     disabled={!rolesUpdates[user.id]}
-                    className="p-1"
+                    className="p-2 m-1"
                   >
                     Salva Ruoli
-                  </button>
-                  <button onClick={() => handleDeleteUser(user.id)}>
+                  </Button>
+                  <Button onClick={() => handleDeleteUser(user.id)}>
                     Elimina
-                  </button>
+                  </Button>
                 </td>
               </tr>
             )

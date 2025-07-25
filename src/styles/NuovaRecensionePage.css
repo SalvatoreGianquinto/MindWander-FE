@@ -46,6 +46,10 @@
   transition: border-color 0.3s ease;
 }
 
+.commento ::placeholder {
+  color: #4e342e;
+}
+
 .nuova-recensione-form select:focus,
 .nuova-recensione-form textarea:focus {
   border-color: #fb8c00;

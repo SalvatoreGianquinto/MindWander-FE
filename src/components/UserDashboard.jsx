@@ -76,6 +76,7 @@ const UserDashboard = () => {
         setRecensioni(
           Array.isArray(recensioniRes.data) ? recensioniRes.data : []
         )
+        console.log("Recensioni caricate:", recensioniRes.data)
 
         const itinerariRes = await axios.get(
           "http://localhost:8080/itineraries",
@@ -333,14 +334,15 @@ const UserDashboard = () => {
           <ListGroup>
             {recensioni.map((r) => (
               <ListGroup.Item key={r.id}>
-                <strong>Struttura:</strong> {r.struttura?.nome || "N/D"}
+                <strong>Struttura:</strong> {r.nomeStruttura || "N/D"}
                 <br />
-                <strong>Voto:</strong> {r.voto} / 5
+                <strong>Voto:</strong> {r.voto} / 10
                 <br />
                 <strong>Commento:</strong> {r.commento}
                 <br />
                 <small>
-                  Data: {new Date(r.dataRecensione).toLocaleDateString("it-IT")}
+                  Data:{" "}
+                  {new Date(r.data || Date.now()).toLocaleDateString("it-IT")}
                 </small>
               </ListGroup.Item>
             ))}
@@ -354,9 +356,20 @@ const UserDashboard = () => {
           <ListGroup>
             {itinerari.map((i) => (
               <ListGroup.Item key={i.id}>
-                <strong>Nome:</strong> {i.nome}
+                <strong>Nome:</strong> {i.titoloIti}
                 <br />
-                <strong>Descrizione:</strong> {i.descrizione}
+                <strong>Descrizione:</strong> {i.descrizioneIti}
+                <br />
+                <strong>Steps:</strong>
+                <ul>
+                  {Array.isArray(i.steps) &&
+                    i.steps.map((step, idx) => (
+                      <li key={step.id || idx}>
+                        <strong>Giorno {step.giornoPrevisto}:</strong>{" "}
+                        {step.luogo} - {step.descrActivity}
+                      </li>
+                    ))}
+                </ul>
               </ListGroup.Item>
             ))}
           </ListGroup>

@@ -59,7 +59,6 @@ const GestioneItinerari = () => {
             <th>Titolo</th>
             <th>Descrizione</th>
             <th>Automatico</th>
-            <th>Modificabile</th>
             <th>Azioni</th>
           </tr>
         </thead>
@@ -76,7 +75,6 @@ const GestioneItinerari = () => {
                 <td data-label="Titolo">{it.titoloIti}</td>
                 <td data-label="Descrizione">{it.descrizioneIti}</td>
                 <td data-label="Automatico">{it.automatic ? "Sì" : "No"}</td>
-                <td data-label="Modificabile">{it.editable ? "Sì" : "No"}</td>
                 <td data-label="Azioni">
                   <button
                     className="btn btn-danger btn-sm"

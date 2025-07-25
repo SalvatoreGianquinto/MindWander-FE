@@ -79,7 +79,7 @@ function NuovaRecensionePage() {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="mb-4">
+          <Form.Group className="mb-4 commento">
             <Form.Label>Commento</Form.Label>
             <Form.Control
               as="textarea"

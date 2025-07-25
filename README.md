@@ -18,20 +18,7 @@ cd MindWander
 
 2. Configurazione file d'ambiente
    Il file application.properties si trova in src/main/resources/ ed è già presente nel progetto e qui:
-   spring.application.name=MindWander
-
-spring.config.import=file:env.properties
-
-spring.datasource.url=jdbc:postgresql://localhost:5432/mindwander
-spring.datasource.username=postgres
-spring.datasource.password=${postgresql.password}
-spring.datasource.driver-class-name=org.postgresql.Driver
-spring.jpa.show-sql=true
-spring.jpa.hibernate.ddl-auto=update
-
-cloudinary.cloud_name=${cloud_name}
-cloudinary.api_key=${api_key}
-cloudinary.api_secret=${api_secret}
+   <img width="677" height="495" alt="image" src="https://github.com/user-attachments/assets/48ccfae0-cfcb-4d1c-9b1a-d14bd8dcf716" />
 
 # JWT
 

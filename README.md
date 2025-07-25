@@ -26,6 +26,7 @@ Crea un file chiamato env.properties fuori dalla cartella resources, nella root 
 <img width="387" height="447" alt="image" src="https://github.com/user-attachments/assets/83e819e0-ffb5-4ef5-8252-7fa3584a9032" />
 
 
+
 postgresql.password=LaTuaPassword
 
 # Cloudinary

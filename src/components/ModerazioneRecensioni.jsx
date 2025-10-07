@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { Button, Spinner } from "react-bootstrap"
+import api from "../api"
 
 const ModerazioneRecensioni = () => {
   const [recensioni, setRecensioni] = useState([])
@@ -13,9 +13,7 @@ const ModerazioneRecensioni = () => {
 
   const fetchRecensioni = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/recensioni/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await api.get("/recensioni/all", {})
       setRecensioni(response.data)
     } catch (error) {
       console.error("Errore nel recupero delle recensioni", error)
@@ -28,7 +26,7 @@ const ModerazioneRecensioni = () => {
     if (!window.confirm("Sei sicuro di voler eliminare questa recensione?"))
       return
     try {
-      await axios.delete(`http://localhost:8080/recensioni/${id}`, {
+      await api.delete(`/recensioni/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setRecensioni((prev) => prev.filter((r) => r.id !== id))

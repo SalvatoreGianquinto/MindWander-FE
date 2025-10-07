@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import axios from "axios"
 import "../styles/PrenotaPage.css"
 import { Button } from "react-bootstrap"
+import api from "../api"
 
 const PrenotaPage = () => {
   const { strutturaId } = useParams()
@@ -24,13 +24,7 @@ const PrenotaPage = () => {
   useEffect(() => {
     const fetchStanze = async () => {
       try {
-        const token = localStorage.getItem("token")
-        const response = await axios.get(
-          `http://localhost:8080/strutture/${strutturaId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
+        const response = await api.get(`/strutture/${strutturaId}`)
         setStanze(response.data.stanze || [])
       } catch (err) {
         console.error("Errore nel caricamento delle stanze", err)
@@ -52,8 +46,6 @@ const PrenotaPage = () => {
     setError(null)
     setSuccess(false)
 
-    const token = localStorage.getItem("token")
-
     if (!stanzaSelezionata) {
       setError("Seleziona una stanza prima di procedere.")
       setLoading(false)
@@ -61,20 +53,14 @@ const PrenotaPage = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/prenotazioni",
-        {
-          strutturaId,
-          stanzaId: stanzaSelezionata,
-          dataInizio: form.dataInizio,
-          dataFine: form.dataFine,
-          numeroOspiti: Number(form.numeroOspiti),
-          note: form.note,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      const response = await api.post("/prenotazioni", {
+        strutturaId,
+        stanzaId: stanzaSelezionata,
+        dataInizio: form.dataInizio,
+        dataFine: form.dataFine,
+        numeroOspiti: Number(form.numeroOspiti),
+        note: form.note,
+      })
       setSuccess(true)
       setForm({ dataInizio: "", dataFine: "", numeroOspiti: 1, note: "" })
       setStanzaSelezionata("")

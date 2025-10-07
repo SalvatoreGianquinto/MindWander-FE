@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button, ListGroup, Spinner, Alert } from "react-bootstrap"
-import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 import "../styles/UserDashboard.css"
+import api from "../api"
 
 const UserDashboard = () => {
   const location = useLocation()
@@ -39,17 +39,10 @@ const UserDashboard = () => {
       setLoading(true)
       setError(null)
       try {
-        const config = {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-
         const decoded = jwtDecode(token)
         const userId = decoded.id || decoded.userId || decoded.sub
 
-        const userRes = await axios.get(
-          `http://localhost:8080/users/${userId}`,
-          config
-        )
+        const userRes = await api.get(`/users/${userId}`)
         setUserInfo(userRes.data)
         setFormData({
           nome: userRes.data.nome || "",
@@ -59,29 +52,20 @@ const UserDashboard = () => {
           password: "",
         })
 
-        const prenotazioniRes = await axios.get(
-          "http://localhost:8080/prenotazioni/miei",
-          config
-        )
+        const prenotazioniRes = await api.get("/prenotazioni/miei")
         setPrenotazioni(
           Array.isArray(prenotazioniRes.data) ? prenotazioniRes.data : []
         )
 
         console.log("Prenotazioni utente:", prenotazioniRes.data)
 
-        const recensioniRes = await axios.get(
-          "http://localhost:8080/recensioni/mie",
-          config
-        )
+        const recensioniRes = await api.get("/recensioni/mie")
         setRecensioni(
           Array.isArray(recensioniRes.data) ? recensioniRes.data : []
         )
         console.log("Recensioni caricate:", recensioniRes.data)
 
-        const itinerariRes = await axios.get(
-          "http://localhost:8080/itineraries",
-          config
-        )
+        const itinerariRes = await api.get("/itineraries")
         setItinerari(Array.isArray(itinerariRes.data) ? itinerariRes.data : [])
       } catch (err) {
         if (err.response && err.response.status === 401) {
@@ -115,9 +99,7 @@ const UserDashboard = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/prenotazioni/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.delete(`/prenotazioni/${id}`, {})
 
       setPrenotazioni((prev) => prev.filter((p) => p.id !== id))
     } catch (error) {
@@ -132,9 +114,7 @@ const UserDashboard = () => {
 
     setSaving(true)
     try {
-      await axios.put(`http://localhost:8080/users/${userInfo.id}`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.put(`/users/${userInfo.id}`, formData, {})
 
       alert("Profilo aggiornato con successo!")
 
@@ -246,7 +226,7 @@ const UserDashboard = () => {
                   />
                 </div>
                 <div className="mb-2">
-                  <label>Nuova password (opzionale)</label>
+                  <label>Password</label>
                   <input
                     type="password"
                     className="form-control"

@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
 import "../styles/AuthPage.css"
 import "../App.css"
 import { FaUser, FaEnvelope, FaLock, FaIdBadge } from "react-icons/fa"
+import api from "../api"
 
 function RegisterPage() {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post("http://localhost:8080/auth/register", formData)
+      await api.post("/auth/register", formData)
       alert("Registrazione completata!")
       navigate("/login")
     } catch (err) {

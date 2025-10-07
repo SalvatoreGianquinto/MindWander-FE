@@ -9,8 +9,8 @@ import {
   Card,
 } from "react-bootstrap"
 import { useState, useEffect } from "react"
-import axios from "axios"
 import "../styles/Itinerari.css"
+import api from "../api"
 
 const CreaItinerarioPage = () => {
   const [titoloIti, setTitoloIti] = useState("")
@@ -24,17 +24,13 @@ const CreaItinerarioPage = () => {
   const [itinerari, setItinerari] = useState([])
   const [deleting, setDeleting] = useState(null)
 
-  const token = localStorage.getItem("token")
-
   useEffect(() => {
     fetchItinerari()
   }, [])
 
   const fetchItinerari = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/itineraries", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await api.get("/itineraries", {})
       setItinerari(response.data)
     } catch (err) {
       console.error("Errore nel recupero degli itinerari", err)
@@ -74,9 +70,7 @@ const CreaItinerarioPage = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/itineraries/create", payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.post("/itineraries/create", payload, {})
       setSuccessMsg("Itinerario creato con successo!")
 
       setTitoloIti("")
@@ -94,9 +88,7 @@ const CreaItinerarioPage = () => {
   const handleDelete = async (id) => {
     setDeleting(id)
     try {
-      await axios.delete(`http://localhost:8080/itineraries/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.delete(`/itineraries/${id}`, {})
       fetchItinerari()
     } catch (err) {
       console.error("Errore durante l'eliminazione dell'itinerario", err)

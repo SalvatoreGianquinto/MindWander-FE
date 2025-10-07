@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
-import axios from "axios"
 import { useParams, useNavigate } from "react-router-dom"
 import { Form, Button, Image, CloseButton, Spinner } from "react-bootstrap"
+import api from "../api"
 
 const UPLOAD_PRESET = "uploadpreset"
 const CLOUD_NAME = "ddfzjwhuq"
@@ -36,12 +36,7 @@ function EditStruttura() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resStruttura = await axios.get(
-          `http://localhost:8080/strutture/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
+        const resStruttura = await api.get(`/strutture/${id}`, {})
         const data = resStruttura.data
         setFormData({
           nome: data.nome || "",
@@ -56,12 +51,7 @@ function EditStruttura() {
         })
         setExistingImages(data.immaginiUrl || [])
 
-        const resServiziExtra = await axios.get(
-          "http://localhost:8080/servizi-extra",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
+        const resServiziExtra = await api.get("/servizi-extra")
         setServiziExtraList(resServiziExtra.data)
       } catch (error) {
         console.error(error)
@@ -107,7 +97,7 @@ function EditStruttura() {
     data.append("file", file)
     data.append("upload_preset", UPLOAD_PRESET)
 
-    const res = await axios.post(
+    const res = await api.post(
       `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
       data
     )
@@ -146,9 +136,7 @@ function EditStruttura() {
     }
 
     try {
-      await axios.put(`http://localhost:8080/strutture/${id}`, strutturaDto, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.put(`/strutture/${id}`, strutturaDto, {})
       alert("Struttura aggiornata con successo!")
       navigate("/backoffice")
     } catch (error) {

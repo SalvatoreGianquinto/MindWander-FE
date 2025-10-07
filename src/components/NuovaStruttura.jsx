@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Form, Button, Spinner, Row, Col } from "react-bootstrap"
 import "../styles/BackOffice.css"
 import NavigationBar from "./NavigatioBar"
+import api from "../api"
 
 const UPLOAD_PRESET = "uploadpreset"
 const CLOUD_NAME = "ddfzjwhuq"
@@ -33,14 +33,35 @@ function NuovaStruttura() {
   const [serviziExtraList, setServiziExtraList] = useState([])
   const token = localStorage.getItem("token")
 
+  const compilaConDatiDemo = () => {
+    setFormData({
+      nome: "Hotel Sole Azzurro",
+      descrizione: "Un hotel accogliente vicino al mare con tutti i comfort.",
+      citta: "Trapani",
+      indirizzo: "Via della Spiaggia 123",
+      prezzo: "140",
+      disponibile: true,
+      moodAssociato: "Relax",
+      categoriaAlloggio: "HOTEL",
+      serviziExtraIds: serviziExtraList.slice(0, 2).map((s) => s.id),
+    })
+
+    setStanze([
+      {
+        nome: "Stanza Matrimoniale",
+        descrizione: "Ampia e luminosa con balcone vista mare",
+        postiLetto: 2,
+        prezzo: 140,
+      },
+    ])
+  }
+
   const fileInputRef = useRef(null)
 
   useEffect(() => {
     const fetchServiziExtra = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/servizi-extra", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        const res = await api.get("/servizi-extra", {})
         setServiziExtraList(res.data)
       } catch (error) {
         console.error("Errore nel fetch servizi extra", error)
@@ -112,7 +133,7 @@ function NuovaStruttura() {
       const formDataImg = new FormData()
       formDataImg.append("file", file)
       formDataImg.append("upload_preset", UPLOAD_PRESET)
-      const res = await axios.post(
+      const res = await api.post(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
         formDataImg
       )
@@ -137,9 +158,7 @@ function NuovaStruttura() {
         serviziExtraIds: formData.serviziExtraIds,
         stanze,
       }
-      await axios.post("http://localhost:8080/strutture", strutturaDto, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.post("/strutture", strutturaDto, {})
       alert("Struttura creata con successo!")
       navigate("/backoffice")
     } catch (error) {
@@ -163,6 +182,14 @@ function NuovaStruttura() {
             Indietro
           </Button>
           <h2 className="mb-4">Crea Nuova Struttura</h2>
+
+          <Button
+            variant="warning"
+            className="mb-3 me-2"
+            onClick={compilaConDatiDemo}
+          >
+            Compila con dati demo
+          </Button>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Nome</Form.Label>

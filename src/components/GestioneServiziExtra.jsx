@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { Table, Button, Modal, Form, Spinner, Alert } from "react-bootstrap"
+import api from "../api"
 
 const GestioneServiziExtra = () => {
   const [servizi, setServizi] = useState([])
@@ -10,9 +10,6 @@ const GestioneServiziExtra = () => {
   const [modalMode, setModalMode] = useState("create")
   const [currentServizio, setCurrentServizio] = useState({ id: null, nome: "" })
 
-  const token = localStorage.getItem("token")
-  const config = { headers: { Authorization: `Bearer ${token}` } }
-
   useEffect(() => {
     fetchServizi()
   }, [])
@@ -20,7 +17,7 @@ const GestioneServiziExtra = () => {
   const fetchServizi = async () => {
     setLoading(true)
     try {
-      const res = await axios.get("http://localhost:8080/servizi-extra", config)
+      const res = await api.get("/servizi-extra")
       setServizi(res.data)
     } catch {
       setError("Errore nel caricamento dei servizi extra")
@@ -33,7 +30,7 @@ const GestioneServiziExtra = () => {
     if (!window.confirm("Sei sicuro di voler eliminare questo servizio extra?"))
       return
     try {
-      await axios.delete(`http://localhost:8080/servizi-extra/${id}`, config)
+      await api.delete(`/servizi-extra/${id}`)
       setServizi((prev) => prev.filter((s) => s.id !== id))
     } catch (err) {
       alert(err.response?.data?.message || "Errore durante la cancellazione")
@@ -59,18 +56,14 @@ const GestioneServiziExtra = () => {
     }
     try {
       if (modalMode === "create") {
-        const res = await axios.post(
-          "http://localhost:8080/servizi-extra",
-          { servizio: currentServizio.nome },
-          config
-        )
+        const res = await api.post("/servizi-extra", {
+          servizio: currentServizio.nome,
+        })
         setServizi((prev) => [...prev, res.data])
       } else {
-        const res = await axios.put(
-          `http://localhost:8080/servizi-extra/${currentServizio.id}`,
-          { servizio: currentServizio.nome },
-          config
-        )
+        const res = await api.put(`/servizi-extra/${currentServizio.id}`, {
+          servizio: currentServizio.nome,
+        })
         setServizi((prev) =>
           prev.map((s) => (s.id === currentServizio.id ? res.data : s))
         )

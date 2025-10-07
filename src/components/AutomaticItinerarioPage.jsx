@@ -9,8 +9,8 @@ import {
   Card,
 } from "react-bootstrap"
 import { useEffect, useState } from "react"
-import axios from "axios"
 import "../styles/Itinerari.css"
+import api from "../api"
 
 const AutomaticItinerarioPage = () => {
   const [formData, setFormData] = useState({
@@ -36,9 +36,7 @@ const AutomaticItinerarioPage = () => {
 
   const fetchUserItineraries = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/itineraries", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await api.get("/itineraries", {})
 
       if (Array.isArray(response.data)) {
         setUserItineraries(response.data)
@@ -63,13 +61,7 @@ const AutomaticItinerarioPage = () => {
     setErrorMsg("")
     setSuccessMsg("")
     try {
-      const res = await axios.post(
-        "http://localhost:8080/itineraries/generate",
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      const res = await api.post("/itineraries/generate", formData)
       setGeneratedItinerary(res.data)
     } catch (err) {
       console.error("Errore nella generazione dell'itinerario:", err)
@@ -100,13 +92,7 @@ const AutomaticItinerarioPage = () => {
         })),
       }
 
-      await axios.post(
-        "http://localhost:8080/itineraries/create",
-        savePayload,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      await api.post("/itineraries/create", savePayload, {})
 
       setSuccessMsg("Itinerario salvato con successo!")
       fetchUserItineraries()
@@ -126,9 +112,7 @@ const AutomaticItinerarioPage = () => {
     setSuccessMsg("")
 
     try {
-      await axios.delete(`http://localhost:8080/itineraries/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await api.delete(`/itineraries/${id}`, {})
 
       setSuccessMsg("Itinerario eliminato con successo.")
       fetchUserItineraries()

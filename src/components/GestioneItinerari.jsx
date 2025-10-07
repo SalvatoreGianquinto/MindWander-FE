@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { Spinner } from "react-bootstrap"
+import api from "../api"
 
 const GestioneItinerari = () => {
   const [itinerari, setItinerari] = useState([])
@@ -13,9 +13,7 @@ const GestioneItinerari = () => {
 
   const fetchItinerari = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/itineraries", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await api.get("/itineraries", {})
       setItinerari(response.data)
     } catch (error) {
       console.error("Errore nel recupero degli itinerari", error)
@@ -29,7 +27,7 @@ const GestioneItinerari = () => {
       return
 
     try {
-      await axios.delete(`http://localhost:8080/itineraries/${id}`, {
+      await api.delete(`/itineraries/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setItinerari((prev) => prev.filter((i) => i.id !== id))

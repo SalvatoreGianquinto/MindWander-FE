@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
 import "../styles/AuthPage.css"
 import "../App.css"
 import { FaUser, FaLock } from "react-icons/fa"
+import api from "../api"
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -22,10 +22,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(
-        "http://localhost:8080/auth/login",
-        formData
-      )
+      const response = await api.post("/auth/login", formData)
       const token = response.data
       localStorage.setItem("token", token)
       window.dispatchEvent(new Event("authChanged"))

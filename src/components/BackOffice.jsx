@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { Table, Button, Spinner, Nav, Tab } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import UserManagement from "./UserManagment"
@@ -7,6 +6,7 @@ import ModerazioneRecensioni from "./ModerazioneRecensioni"
 import GestioneItinerari from "./GestioneItinerari"
 import GestioneServiziExtra from "./GestioneServiziExtra"
 import "../styles/BackOffice.css"
+import api from "../api"
 
 const BackOffice = () => {
   const [strutture, setStrutture] = useState([])
@@ -20,9 +20,7 @@ const BackOffice = () => {
 
   const fetchStrutture = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/strutture", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      const response = await api.get("/strutture", {})
       setStrutture(response.data)
     } catch (error) {
       console.error("Errore nel recupero delle strutture", error)
@@ -35,7 +33,7 @@ const BackOffice = () => {
     if (!window.confirm("Sei sicuro di voler eliminare questa struttura?"))
       return
     try {
-      await axios.delete(`http://localhost:8080/strutture/${id}`, {
+      await api.delete(`/strutture/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setStrutture((prev) => prev.filter((s) => s.id !== id))

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { Button } from "react-bootstrap"
-
-const API_URL = "http://localhost:8080/users"
+import api from "../api"
 
 const UserManagement = () => {
   const [users, setUsers] = useState([])
@@ -12,9 +10,7 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(API_URL, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
+      const res = await api.get("/users")
       setUsers(res.data)
       setLoading(false)
     } catch {
@@ -50,16 +46,10 @@ const UserManagement = () => {
         addRoles: new Set(),
         removeRoles: new Set(),
       }
-      await axios.put(
-        `${API_URL}/${userId}/roles`,
-        {
-          addRoles: Array.from(addRoles),
-          removeRoles: Array.from(removeRoles),
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
+      await api.put(`/users/${userId}/roles`, {
+        addRoles: Array.from(addRoles),
+        removeRoles: Array.from(removeRoles),
+      })
       alert("Ruoli aggiornati")
       fetchUsers()
       setRolesUpdates((prev) => {
@@ -75,9 +65,7 @@ const UserManagement = () => {
   const handleDeleteUser = async (userId) => {
     if (!window.confirm("Sei sicuro di voler eliminare questo utente?")) return
     try {
-      await axios.delete(`${API_URL}/${userId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
+      await api.delete(`/users/${userId}`)
       alert("Utente eliminato")
       fetchUsers()
     } catch {

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import FiltriStrutture from "../components/FiltriStrutture"
 import { Card, Button, Row, Col } from "react-bootstrap"
 import "../styles/StruttureList.css"
 import { Link } from "react-router-dom"
+import api from "../api"
 
 const StruttureList = () => {
   const [strutture, setStrutture] = useState([])
 
   const fetchStrutture = async (filtri = {}) => {
     try {
-      const token = localStorage.getItem("token")
-
       const params = {}
       if (filtri.citta) params.citta = filtri.citta
       if (filtri.mood) params.mood = filtri.mood
@@ -19,21 +17,15 @@ const StruttureList = () => {
       if (filtri.maxPrezzo) params.maxPrezzo = filtri.maxPrezzo
       if (filtri.votoMedioMin) params.votoMedioMin = filtri.votoMedioMin
 
-      const res = await axios.get("http://localhost:8080/strutture/filtrate", {
+      const res = await api.get("/strutture/filtrate", {
         params,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       })
 
       const struttureConMedia = await Promise.all(
         res.data.map(async (s) => {
           try {
-            const mediaRes = await axios.get(
-              `http://localhost:8080/recensioni/struttura/${s.id}/media`,
-              {
-                headers: { Authorization: `Bearer ${token}` },
-              }
+            const mediaRes = await api.get(
+              `/recensioni/struttura/${s.id}/media`
             )
             return { ...s, mediaVoto: mediaRes.data }
           } catch {

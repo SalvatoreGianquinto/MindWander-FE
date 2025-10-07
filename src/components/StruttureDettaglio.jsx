@@ -1,6 +1,5 @@
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-import axios from "axios"
 import {
   Badge,
   Button,
@@ -11,6 +10,7 @@ import {
   Alert,
 } from "react-bootstrap"
 import "../styles/StruttureDettaglio.css"
+import api from "../api"
 
 function StrutturaDettaglio() {
   const { id } = useParams()
@@ -42,15 +42,9 @@ function StrutturaDettaglio() {
 
       try {
         const [strutturaRes, recensioniRes, mediaRes] = await Promise.all([
-          axios.get(`http://localhost:8080/strutture/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get(`http://localhost:8080/recensioni/struttura/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get(`http://localhost:8080/recensioni/struttura/${id}/media`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
+          api.get(`/strutture/${id}`, {}),
+          api.get(`/recensioni/struttura/${id}`, {}),
+          api.get(`/recensioni/struttura/${id}/media`, {}),
         ])
 
         setStruttura(strutturaRes.data)

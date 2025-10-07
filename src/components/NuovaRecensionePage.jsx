@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import axios from "axios"
 import { Form, Button, Alert, Spinner } from "react-bootstrap"
 import "../styles/NuovaRecensionePage.css"
+import api from "../api"
 
 function NuovaRecensionePage() {
   const { id } = useParams()
@@ -24,17 +24,11 @@ function NuovaRecensionePage() {
     setLoading(true)
     setErrore("")
     try {
-      await axios.post(
-        "http://localhost:8080/recensioni",
-        {
-          strutturaId: id,
-          voto,
-          commento,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+      await api.post("/recensioni", {
+        strutturaId: id,
+        voto,
+        commento,
+      })
       setSuccesso(true)
       setTimeout(() => navigate(`/strutture/${id}`), 1500)
     } catch (err) {

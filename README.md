@@ -1,3 +1,6 @@
+
+IN FASE DI SVILUPPO PERCHE' STO RISCRIVENDO IL BACKEND IN NODE.JS + EXPRESS
+
 _MindWander_ è una piattaforma web che unisce viaggio e benessere mentale. Gli utenti possono esplorare strutture ricettive in base al proprio stato d’animo, generare o creare itinerari personalizzati, lasciare recensioni, aggiungere strutture ai preferiti e gestire le proprie esperienze tramite una dashboard personale.
 
 > Progetto full stack realizzato come prova finale per il corso _Epicode – Luglio 2025_.

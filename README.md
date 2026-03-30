@@ -1,5 +1,5 @@
 
-IN FASE DI SVILUPPO PERCHE' STO RISCRIVENDO IL BACKEND IN NODE.JS + EXPRESS
+IN FASE DI MIGRAZIONE, PERCHÉ STO RISCOVENDO TUTTO IN NEXT.JS
 
 _MindWander_ è una piattaforma web che unisce viaggio e benessere mentale. Gli utenti possono esplorare strutture ricettive in base al proprio stato d’animo, generare o creare itinerari personalizzati, lasciare recensioni, aggiungere strutture ai preferiti e gestire le proprie esperienze tramite una dashboard personale.
 
